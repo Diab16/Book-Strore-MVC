@@ -50,7 +50,7 @@ Contributing to a project on GitHub is a great way to collaborate with others an
    git checkout -b your-branch-name
    ```
 
-5. **Make Changes**: Make the necessary changes to the codebase. Ensure you follow the project's contribution guidelines.
+5. **Make Changes**: Make the necessary changes to the codebase, Ensure you follow the project's contribution guidelines.
 
 6. **Commit Your Changes**: Commit your changes with a descriptive message:
 
