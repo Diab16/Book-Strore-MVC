@@ -1,4 +1,6 @@
 using Book_Store_MVC.Models;
+using Day2.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Book_Store_MVC
@@ -11,12 +13,17 @@ namespace Book_Store_MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            // Adding session service
+            builder.Services.AddSession(options =>
+                options.IdleTimeout = TimeSpan.FromMinutes(25)
+            );
             //Adding DatabaseContext Services
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Sanad"));
             });
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
+            
 
             var app = builder.Build();
 
@@ -32,7 +39,8 @@ namespace Book_Store_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

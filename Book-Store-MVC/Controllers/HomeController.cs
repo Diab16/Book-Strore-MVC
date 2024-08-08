@@ -1,4 +1,5 @@
 using Book_Store_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,12 +13,13 @@ namespace Book_Store_MVC.Controllers
         {
             _logger = logger;
         }
+        [Authorize]
 
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

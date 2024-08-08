@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Day2.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Book_Store_MVC.Models
 {
-    public class BookStoreContext : DbContext
+    public class BookStoreContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Author> Author { get; set; }
         public DbSet<Book> Books { get; set; }
@@ -11,7 +13,8 @@ namespace Book_Store_MVC.Models
         public DbSet<Publisher> Publisher { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<BookOrder> BookOrder { get; set; }
-
+        public BookStoreContext() { }
+        public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -147,10 +150,10 @@ namespace Book_Store_MVC.Models
                 new BookOrder { Id = 3, Book_Id = 3, Order_Id = 2, Quantity = 1 },
                 new BookOrder { Id = 4, Book_Id = 4, Order_Id = 2, Quantity = 3 }
             );
+            base.OnModelCreating(modelBuilder);
         }
 
-        public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options) { }
-
+        
 
 
     }
