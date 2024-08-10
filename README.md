@@ -21,7 +21,6 @@ Book-Store-MVC is a web application built using ASP.NET MVC, designed to manage 
 ## Coming featurs
 
 - **Order Processing**: Manage customer orders and track sales with real payment.
--
 
 ## Getting Started
 
@@ -70,4 +69,3 @@ Contributing to a project on GitHub is a great way to collaborate with others an
 9. **Discuss and Update**: Engage with the repository maintainers if they have any feedback or requests for changes. Make the necessary updates and push them to your branch.
 
 10. **Merge**: Once your pull request is approved, it will be merged into the main branch of the original repository.
-11. 
