@@ -20,7 +20,7 @@ namespace Book_Store_MVC
             //Adding DatabaseContext Services
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("Sanad"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("abdalla"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
             
