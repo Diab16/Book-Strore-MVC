@@ -36,7 +36,7 @@ namespace Day2.Controllers
                 if (result.Succeeded)
                 {
                     //await signInManager.SignInAsync(user, isPersistent: false);
-                    //await userManager.AddToRoleAsync(user, "Admin");
+                    await userManager.AddToRoleAsync(user, "Customer");
                     return RedirectToAction("Login");
                 }
                 foreach (var item in result.Errors)
