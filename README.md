@@ -69,4 +69,5 @@ Contributing to a project on GitHub is a great way to collaborate with others an
 9. **Discuss and Update**: Engage with the repository maintainers if they have any feedback or requests for changes. Make the necessary updates and push them to your branch.
 
 10. **Merge**: Once your pull request is approved, it will be merged into the main branch of the original repository.
-11. ![ER BookStore](https://github.com/user-attachments/assets/f8ce38a7-4205-4d79-a597-c5ea52565a72)
+11. ER diagram 
+![ERBookStore](https://github.com/user-attachments/assets/f8ce38a7-4205-4d79-a597-c5ea52565a72)
