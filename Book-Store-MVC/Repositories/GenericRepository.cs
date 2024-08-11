@@ -8,12 +8,12 @@ namespace Book_Store_MVC.Repositories
     {
         private BookStoreContext Context;
         private DbSet<T> DBset; 
-        GenericRepository()
+        public GenericRepository()
         {
             Context = new BookStoreContext();
             DBset = Context.Set<T>();
         }
-        GenericRepository(BookStoreContext _contex)
+        public GenericRepository(BookStoreContext _contex)
         {
             Context = _contex;
             DBset=_contex.Set<T>();
