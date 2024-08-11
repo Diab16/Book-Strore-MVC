@@ -12,11 +12,88 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+
+    background-color: #C9D7DD;
 }
+
+
+.sofia-regular {
+    font-family: "Sofia", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.searshboreder {
+    border-radius: 8.25rem !important;
+}
+
+.Maincolor {
+    background-color: #C9D7DD;
+}
+
+
+
+i {
+    color: #102C57;
+}
+
+.parent {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0px 1em;
+    width: 100%;
+    height: 100%;
+}
+
+.ch1 {
+    grid-area: 1 / 1 / 4 / 2;
+}
+
+
+.ch2 {
+    grid-area: 1 / 2 / 2 / 6;
+}
+
+
+
+
+.ch3 {
+    grid-area: 2 / 2 / 3 / 6;
+    text-align: center;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+
+li a:hover {
+    color: #C9D7DD !important;
+}
+
+.row a:hover {
+    transform: scale(1);
+}
+
+section .button {
+    background-color: #102C57;
+    color: #ffff;
+    margin: 8px;
+}
+
+
+.categ i 
+{
+    font-size:50px;
+}
+
+

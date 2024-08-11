@@ -1,0 +1,37 @@
+﻿
+@model BookViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<section class="  bg-light rounded-3 m-5 rounded-3 m-5">
+
+    <form action="/Book/Delete/@Model.Id" method="post">
+
+        <h4 class="p-2"> <i class="fa-solid text-danger fa-trash"></i>  Delete</h4>
+
+        <div class="d-flex align-items-center justify-content-lg-around  ">
+
+            <img class="card-img-top w-50 rounded-3" src="~/imges/@Model.ImageUrl" alt="Card image">
+            <div class="card-body   position-relative text-black">
+                <h4 class="card-title">@Model.Title</h4>
+                <p class="card-text ">@Model.Description</p>
+                <p class="card-text  text-info">@Model.Category?.Name</p>
+                <p> <i class="fa-solid fa-dollar-sign"></i> @Model.Price</p>
+   
+
+
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this Book?');" class="btn  m-1"> <i class="fa-solid text-danger  fa-trash"></i>  Delete </button>
+                    <a asp-action="Index" asp-controller="Book" class="btn  ">Back to list</a>
+                
+
+            </div>
+        </div>
+
+    </form>
+
+
+</section> 
+

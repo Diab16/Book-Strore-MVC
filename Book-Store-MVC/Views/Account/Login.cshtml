@@ -1,44 +1,51 @@
 ﻿@model Day2.ViewModels.LoginViewModel
+@{
+    
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+<partial name="NavPartialView" />
 
-<h4>Login Page</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class=" col-6 d-flex  justify-content-center align-items-center  ">
+    <div class=" w-50  d-flex">
+        <img src="~/imges/3293465.jpg" class="img-fluid rounded-circle " alt="Alternate Text" />
+
+    </div>
+</div>
+
+<div class=" col-6  p-2 ">
+    <div class="  p-4">
+        <h1> Login  </h1>
         <form asp-action="Login">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserEmail" class="control-label"></label>
-                <input asp-for="UserEmail" class="form-control" />
+            <div class="form-group p-2">
+                <label asp-for="UserEmail" class="control-label">Email</label>
+                <input placeholder="Enter Email" asp-for="UserEmail" class="form-control Maincolor" />
                 <span asp-validation-for="UserEmail" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+            <div class="form-group  p-2">
+                <label asp-for="Password" class="control-label">Password</label>
+                <input placeholder="Enter Password" asp-for="Password" class="form-control Maincolor" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group p-2  form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Remember_Me" /> @Html.DisplayNameFor(model => model.Remember_Me)
                 </label>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+            <div class="form-group  p-2">
+                <input type="submit" value="Login" class="btn btn-primary form-control" />
             </div>
         </form>
+        <div class="d-flex justify-content-between  ">
+            <a asp-action="register" asp-controller="account" class="text-decoration-none">Register New Account ?</a>
+            <a asp-controller="Book" asp-action="Index" class="text-decoration-none">    Home  <i class="fa-regular fa-hand-point-right"></i></a>
+
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="register" asp-controller="account">Register New Account ?</a>
-</div>
-@section navbar{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-    </li>
-}
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        
+
+
+
+   

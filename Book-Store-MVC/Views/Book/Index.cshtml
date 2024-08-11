@@ -1,0 +1,73 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+     
+
+
+   <section class=" d-flex p-3 justify-content-evenly flex-wrap bg-light m-5 rounded-3">
+
+      <div class="container ">
+          <div class="d-flex justify-content-between">
+           <div>
+                <i class="fa-solid fa-filter"></i>
+                @foreach (var cat in ViewBag.Category)
+                {
+                    <a asp-route-id="@cat.Id" class="btn button"> @cat.Name</a>
+
+                }
+           </div>
+            @if (!User.IsInRole("Admin"))
+            {
+
+
+                <a class="btn  m-1" asp-action="Create" asp-controller="Book"> <i class="fa-solid fa-plus"></i>  Add New Book </a>
+
+            }
+          </div>
+
+
+        <div class="row g-3  m-2">
+            @foreach(var item in Model)
+            {
+                <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Book" class=" card-group text-decoration-none col-sm-6 col-md-3 col-lg-3">
+                    <div class=" card shadow   rounded-3 ">
+                        <img class="card-img-top   img-fluid" src="~/imges/@item.ImageUrl" alt="Card image">
+                        <div class="card-body   position-relative text-black">
+                            <h4 class="card-title">@item.Title</h4>
+                            <p class="card-text ">@item.Description</p>
+                            <p class="card-text  text-info">@item.Category.Name</p>
+
+                            <div class=" position-absolute bottom-0  ">
+                                <p> <i class="fa-solid fa-dollar-sign"></i> @item.Price</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+              
+            }
+           
+          </div>
+     
+      </div>
+
+  
+
+   </section>
+
+
+<ul class="pagination ch3 ">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item"><a class="page-link" href="#">6</a></li>
+    <li class="page-item"><a class="page-link" href="#">7</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
+
+
