@@ -18,6 +18,7 @@ namespace Book_Store_MVC
                 options.IdleTimeout = TimeSpan.FromMinutes(25)
             );
             //Adding DatabaseContext Services
+            // test comment
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("abdalla"));
