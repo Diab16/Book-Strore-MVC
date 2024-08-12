@@ -1,5 +1,7 @@
+using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.MappingProfile;
 using Book_Store_MVC.Models;
+using Book_Store_MVC.Repositories;
 using Day2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,12 @@ namespace Book_Store_MVC
 
             //adding Di  "temp"
             builder.Services.AddScoped<BookStoreContext>();
+            builder.Services.AddScoped<IGenericRepository<Book> , BookRepository>();
+            builder.Services.AddScoped<IGenericRepository<Author> , AuthorRepository>();
+            builder.Services.AddScoped<IGenericRepository<Category> , CategoryRepository>();
+         
+
+
             builder.Services.AddAutoMapper(M => M.AddProfile(new BookMapProfile()));
 
 

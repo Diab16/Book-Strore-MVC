@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Book_Store_MVC.FileUpload;
+using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
+using Book_Store_MVC.Repositories;
 using Book_Store_MVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,38 +14,55 @@ namespace Book_Store_MVC.Controllers
 {
     public class BookController : Controller
     {
+        private readonly IGenericRepository<Book> genericRepository;
+        private readonly IGenericRepository<Category> catgenericRepository;
+        private readonly IGenericRepository<Author> aurhrepo;
+
         private readonly BookStoreContext bookStore;
         private readonly IMapper mapper;
+       
 
-        public BookController(BookStoreContext bookStore , IMapper mapper )
+        //public BookController(BookStoreContext bookStore , IMapper mapper )
+        //{
+        //    this.bookStore = bookStore;
+        //    this.mapper = mapper;
+        //}
+
+
+        public BookController(IGenericRepository<Book> genericRepository, IGenericRepository<Category> catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
+          BookStoreContext bookStore)
         {
-            this.bookStore = bookStore;
+            this.genericRepository = genericRepository;
+            this.catgenericRepository = catgenericRepository;
+            this.aurhrepo = aurhrepo;
             this.mapper = mapper;
+         
+            this.bookStore = bookStore;
         }
+
 
         #region Index
         public ActionResult Index(int id, string Search)
         {
+            // var bookowithnoinclude = genericRepository.GetAll().AsQueryable();
+            var books = genericRepository.GetAll(b => b.Category, b => b.Author, b => b.Publisher).ToList();
+
+            List<Category> categories = catgenericRepository.GetAll().Select(c => new Category
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
+
             if (id == 0 && Search == null)
             {
-                List<Book> books = bookStore.Books.Include(b => b.Category).Include(b => b.Author).Include(b => b.Publisher).ToList();
-                List<Category> categories = bookStore.Category.Select(c => new Category
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
-
+                //  List<Book> books = bookStore.Books.Include(b => b.Category).Include(b => b.Author).Include(b => b.Publisher).ToList();
+             
                 ViewBag.Category = categories;
                 return View(books);
             }
             else if (id != 0 && Search == null)
             {
-                List<Book> books = bookStore.Books.Where(c => c.CategoryId == id).Include(b => b.Category).ToList();
-                List<Category> categories = bookStore.Category.Select(c => new Category
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList();
+                 books = books.Where(b=>b.CategoryId == id).ToList();
                 ViewBag.Category = categories;
                 return View(books);
             }
@@ -51,18 +70,13 @@ namespace Book_Store_MVC.Controllers
             {
                 string lowerSearch = Search.ToLower();
 
-                List<Book> books = bookStore.Books
+                  books = books
                     .Where(c => c.Author.Name.ToLower().Contains(lowerSearch) ||
                                 c.Publisher.Name.ToLower().Contains(lowerSearch) ||
-                                c.Title.ToLower().Contains(lowerSearch))
-                    .Include(b => b.Category)
-                    .ToList(); List<Category> categories = bookStore.Category.Select(c => new Category
-                    {
-                        Id = c.Id,
-                        Name = c.Name
-                    }).ToList();
-                ViewBag.Category = categories;
-                return View(books);
+                                c.Title.ToLower().Contains(lowerSearch)).ToList();    
+                
+                   ViewBag.Category = categories;
+                   return View(books);
 
             }
 
@@ -72,20 +86,19 @@ namespace Book_Store_MVC.Controllers
         #endregion
 
         #region Filter
-        public ActionResult Filter(int id)
-        {
-            List<Book> books = bookStore.Books.Where(c => c.Id == id).ToList();
-
-
-            return View(books);
-        }
+        //public ActionResult Filter(int id)
+        //{
+        //    List<Book> books = genericRepository.GetAll().Where(c => c.Id == id).ToList();
+        //    return View(books);
+        //}
         #endregion
 
         #region Details
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            Book book = bookStore.Books.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefault();
+            //  Book book = bookStore.Books.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefault();
+            Book book = genericRepository.GetById(id);
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
 
             return View(viewModel);
@@ -101,8 +114,8 @@ namespace Book_Store_MVC.Controllers
 
             BookViewModel viewModel = new BookViewModel();
 
-            viewModel.Categorylist = bookStore.Category.ToList();
-            viewModel.Authorlist = bookStore.Author.ToList();
+            viewModel.Categorylist = catgenericRepository.GetAll().ToList();
+            viewModel.Authorlist = aurhrepo.GetAll().ToList();
             viewModel.publisherlist = bookStore.Publisher.ToList();
 
             return View(viewModel);
@@ -119,10 +132,7 @@ namespace Book_Store_MVC.Controllers
             if (ModelState.IsValid)
                 {
                 string ImageUrl;
-                ImageUrl= bookmaped.ImageUrl = UploadFile.Upload(bookmaped.Imagefile, "Imges");
-                //  book.PublisherName =  " Publisher";
-                //  book.AuthorName =  " Author";
-                //Book bookMapped = mapper.Map<BookViewModel, Book>(book);
+                ImageUrl = bookmaped.ImageUrl = UploadFile.Upload(bookmaped.Imagefile, "Imges");
 
                 Book book = new Book
                 {
@@ -135,10 +145,11 @@ namespace Book_Store_MVC.Controllers
                     PublisherId = bookmaped.PublisherId,
                     AuthorId = bookmaped.AuthorId,
                     ImageUrl = ImageUrl
-                };
+                }; 
 
-                var author = bookStore.Author.Find(bookmaped.AuthorId);
+                var author = aurhrepo.GetById(bookmaped.AuthorId);
                 var publisher = bookStore.Publisher.Find(bookmaped.PublisherId);
+              //  var publisher = publisherrepo.GetById(bookmaped.PublisherId);
 
                 if (author != null)
                 {
@@ -149,19 +160,16 @@ namespace Book_Store_MVC.Controllers
                     book.PublisherName = publisher.Name; // Assign the PublisherName
                 }
 
-                     bookStore.Add(book);
-                    int result = bookStore.SaveChanges();
-                    if (result > 0)
-                    {
-                        TempData["Message"] = "Trainee Added Succsuusfully";
-                    }
+                     genericRepository.Add(book);
+                     genericRepository.Save();
+                    
                     return RedirectToAction(nameof(Index));
                 }
-            bookmaped.Categorylist = bookStore.Category.ToList();
+            bookmaped.Categorylist = catgenericRepository.GetAll().ToList();
+            bookmaped.Authorlist = aurhrepo.GetAll().ToList();
             bookmaped.publisherlist = bookStore.Publisher.ToList();
-            bookmaped.Authorlist = bookStore.Author.ToList();
 
-                return View(bookmaped);
+            return View(bookmaped);
 
          
             
@@ -174,11 +182,11 @@ namespace Book_Store_MVC.Controllers
         #region    Edit
         public ActionResult Edit(int id)
         {
-            Book book = bookStore.Books.Where(b => b.Id == id).FirstOrDefault();
+            Book book = genericRepository.GetById(id);
             ModelState.Remove("Imagefile"); // Remove the validation for Imagefile if editing
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
-            viewModel.Categorylist = bookStore.Category.ToList();
-            viewModel.Authorlist = bookStore.Author.ToList();
+            viewModel.Categorylist = catgenericRepository.GetAll().ToList();
+            viewModel.Authorlist = aurhrepo.GetAll().ToList();
             viewModel.publisherlist = bookStore.Publisher.ToList();
             viewModel.ImageUrl = book.ImageUrl;
             return View(viewModel);
@@ -195,7 +203,7 @@ namespace Book_Store_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                var book = bookStore.Books.Find(bookmodel.Id);
+                var book  = genericRepository.GetById(bookmodel.Id);
                 bookmodel.ImageUrl = UploadFile.Upload(bookmodel.Imagefile, "imges");
                 book.Title = bookmodel.Title;
                 book.Description = bookmodel.Description;
@@ -209,7 +217,8 @@ namespace Book_Store_MVC.Controllers
 
 
 
-                var author = bookStore.Author.Find(bookmodel.AuthorId);
+
+                var author = aurhrepo.GetById(bookmodel.AuthorId);
                 var publisher = bookStore.Publisher.Find(bookmodel.PublisherId);
 
                 if (author != null)
@@ -221,13 +230,13 @@ namespace Book_Store_MVC.Controllers
                     book.PublisherName = publisher.Name; // Assign the PublisherName
                 }
                // Book book = mapper.Map<BookViewModel, Book>(bookmodel);
-                bookStore.Books.Update(book);
-                bookStore.SaveChanges();
+                genericRepository.Update(book);
+                genericRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
-            bookmodel.Categorylist = bookStore.Category.ToList();
+            bookmodel.Categorylist = catgenericRepository.GetAll().ToList();
+            bookmodel.Authorlist = aurhrepo.GetAll().ToList();
             bookmodel.publisherlist = bookStore.Publisher.ToList();
-            bookmodel.Authorlist = bookStore.Author.ToList();
 
             return View(bookmodel);
         }
@@ -237,7 +246,7 @@ namespace Book_Store_MVC.Controllers
         #region Delete
         public ActionResult Delete(int id)
         {
-            Book book = bookStore.Books.Where(b => b.Id == id).FirstOrDefault();
+            var book = genericRepository.GetById(id);
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
        
             return View(viewModel);
@@ -251,8 +260,8 @@ namespace Book_Store_MVC.Controllers
             if (id == bookmodel.Id)
             {
                 Book book = mapper.Map<BookViewModel, Book>(bookmodel);
-                bookStore.Remove(book);
-                bookStore.SaveChanges();
+                genericRepository.Delete(book);
+                genericRepository.Save();
                 return RedirectToAction(nameof(Index));
 
             }

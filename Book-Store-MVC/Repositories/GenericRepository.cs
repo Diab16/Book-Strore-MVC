@@ -1,6 +1,7 @@
 ﻿using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Book_Store_MVC.Repositories
 {
@@ -29,8 +30,20 @@ namespace Book_Store_MVC.Repositories
         }
 
         public IEnumerable<T> GetAll()
-        {
+        {   
+            
             return DBset.ToList();
+        }
+        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = DBset;
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.ToList();
         }
 
         public T GetById(int id)
