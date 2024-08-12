@@ -1,3 +1,4 @@
+using Book_Store_MVC.MappingProfile;
 using Book_Store_MVC.Models;
 using Day2.Models;
 using Microsoft.AspNetCore.Identity;
@@ -20,10 +21,15 @@ namespace Book_Store_MVC
             //Adding DatabaseContext Services
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("Sanad"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Alaa"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
-            
+
+            //adding Di  "temp"
+            builder.Services.AddScoped<BookStoreContext>();
+            builder.Services.AddAutoMapper(M => M.AddProfile(new BookMapProfile()));
+
+
 
             var app = builder.Build();
 
@@ -45,7 +51,7 @@ namespace Book_Store_MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Book}/{action=Index}/{id?}");
 
             app.Run();
         }
