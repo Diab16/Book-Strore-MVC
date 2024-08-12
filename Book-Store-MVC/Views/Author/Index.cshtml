@@ -1,0 +1,52 @@
+﻿@model List<Author>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Author</h1>
+
+<!-- Search Form -->
+<form asp-action="Search" method="get" class="form-inline mb-3">
+    <input type="text" name="searchTerm" class="form-control mr-2" placeholder="Search by author name" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<table class="table">
+    <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>@author.Name</td>
+                <td>
+                    <ul>
+                        @foreach (var book in author.Books)
+                        {
+                            <li>@book.Title</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = author.Id })">Details</a>
+                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                    {
+                        <a href="@Url.Action("Edit", new { id = author.Id })">Edit</a>
+                        <a href="@Url.Action("Delete", new { id = author.Id })">Delete</a>
+                        <a href="@Url.Action("Create",new {id =author.Id})">Create</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section navbar {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="signout">Log Out</a>
+    </li>
+}

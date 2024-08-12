@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details Page</h1>
+<h2>@Model.Name</h2>
+
+<h3>Books Made by The Author @Model.Name</h3>
+<ul>
+    @foreach (var book in Model.Books)
+    {
+        <li>@book.Title</li>
+       
+    }
+</ul>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+@section navbar {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="signout">Log Out</a>
+    </li>
+}
