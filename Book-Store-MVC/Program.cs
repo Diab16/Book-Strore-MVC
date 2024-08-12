@@ -21,7 +21,7 @@ namespace Book_Store_MVC
             //Adding DatabaseContext Services
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("Alaa"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("csLocal"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
