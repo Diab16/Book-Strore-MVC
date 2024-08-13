@@ -20,19 +20,19 @@ namespace Book_Store_MVC.Repositories
             return books.Count();
         }
 
-        public IEnumerable<Book> GetAll(int categoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
+        public IEnumerable<Book> GetAll(int CategoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
         {
             IQueryable<Book> result;
 
-            if (id == 0 && searchTerm == null)
+            if (CategoryId == 0 && searchTerm == null)
             {
 
                 result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
             }
-            else if (id != 0 && searchTerm == null)
+            else if (CategoryId != 0 && searchTerm == null)
             {
-                result = books.Where(b => id == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+                result = books.Where(b => CategoryId == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
             else
             {

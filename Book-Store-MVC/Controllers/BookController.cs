@@ -14,7 +14,7 @@ namespace Book_Store_MVC.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookRepository  genericRepository;
+        private readonly BookRepository  bookRepository;
         //   private readonly IGenericRepository<Category> catgenericRepository;
            private readonly CategoryRepository catgenericRepository;
 
@@ -22,10 +22,10 @@ namespace Book_Store_MVC.Controllers
         private readonly IMapper mapper;
         private readonly IGenericRepository<Models.Publisher> publisherrepo;
 
-        public BookController(BookRepository genericRepository, CategoryRepository catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
+        public BookController(BookRepository bookRepository, CategoryRepository catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
          IGenericRepository<Models.Publisher> publisherrepo )
         {
-            this.genericRepository = genericRepository;
+            this.bookRepository = bookRepository;
             this.catgenericRepository = catgenericRepository;
             this.aurhrepo = aurhrepo;
             this.mapper = mapper;
@@ -37,8 +37,8 @@ namespace Book_Store_MVC.Controllers
         #region Index
         public ActionResult Index(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
         {
-            List<Book> books = genericRepository.GetAll( id, searchTerm, pageNumber , pageSize).ToList(); 
-           int total = books.Count();
+            List<Book> books = bookRepository.GetAll( id, searchTerm, pageNumber , pageSize).ToList();
+            int total = bookRepository.Count();
             int pages = (int)Math.Ceiling((double)total / pageSize); ;
             List<Category> categories = catgenericRepository.GetAll().Select(c => new Category
             {
@@ -64,7 +64,7 @@ namespace Book_Store_MVC.Controllers
         public ActionResult Details(int id)
         {
             //  Book book = bookStore.Books.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefault();
-            Book book = genericRepository.GetById(id);
+            Book book = bookRepository.GetById(id);
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
 
             return View(viewModel);
@@ -126,8 +126,8 @@ namespace Book_Store_MVC.Controllers
                     book.PublisherName = publisher.Name; // Assign the PublisherName
                 }
 
-                     genericRepository.Add(book);
-                     genericRepository.Save();
+                bookRepository.Add(book);
+                bookRepository.Save();
                     
                     return RedirectToAction(nameof(Index));
                 }
@@ -148,7 +148,7 @@ namespace Book_Store_MVC.Controllers
         #region    Edit
         public ActionResult Edit(int id)
         {
-            Book book = genericRepository.GetById(id);
+            Book book = bookRepository.GetById(id);
             ModelState.Remove("Imagefile"); // Remove the validation for Imagefile if editing
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
             viewModel.Categorylist = catgenericRepository.GetAll().ToList();
@@ -169,7 +169,7 @@ namespace Book_Store_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                var book  = genericRepository.GetById(bookmodel.Id);
+                var book  = bookRepository.GetById(bookmodel.Id);
                 bookmodel.ImageUrl = UploadFile.Upload(bookmodel.Imagefile, "imges");
                 book.Title = bookmodel.Title;
                 book.Description = bookmodel.Description;
@@ -196,8 +196,8 @@ namespace Book_Store_MVC.Controllers
                     book.PublisherName = publisher.Name; // Assign the PublisherName
                 }
                // Book book = mapper.Map<BookViewModel, Book>(bookmodel);
-                genericRepository.Update(book);
-                genericRepository.Save();
+                bookRepository.Update(book);
+                bookRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
             bookmodel.Categorylist = catgenericRepository.GetAll().ToList();
@@ -212,7 +212,7 @@ namespace Book_Store_MVC.Controllers
         #region Delete
         public ActionResult Delete(int id)
         {
-            var book = genericRepository.GetById(id);
+            var book = bookRepository.GetById(id);
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
        
             return View(viewModel);
@@ -226,8 +226,8 @@ namespace Book_Store_MVC.Controllers
             if (id == bookmodel.Id)
             {
                 Book book = mapper.Map<BookViewModel, Book>(bookmodel);
-                genericRepository.Delete(book);
-                genericRepository.Save();
+                bookRepository.Delete(book);
+                bookRepository.Save();
                 return RedirectToAction(nameof(Index));
 
             }
