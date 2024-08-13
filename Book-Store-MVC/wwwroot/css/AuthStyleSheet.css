@@ -1,0 +1,12 @@
+﻿body {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffff;
+}
+
+.login {
+    box-shadow: 20px 18px 25px -5px rgba(128, 111, 111, 0.71);
+}
