@@ -34,17 +34,7 @@ namespace Book_Store_MVC.Repositories
             
             return DBset.ToList();
         }
-        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeProperties)
-        {
-            IQueryable<T> query = DBset;
-
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return query.ToList();
-        }
+     
 
         public T GetById(int id)
         {

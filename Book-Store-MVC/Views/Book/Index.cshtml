@@ -53,21 +53,42 @@
      
       </div>
 
-  
+
+    
+
 
    </section>
 
 
+
 <ul class="pagination ch3 ">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">5</a></li>
-    <li class="page-item"><a class="page-link" href="#">6</a></li>
-    <li class="page-item"><a class="page-link" href="#">7</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item">
+           @if (ViewBag.CurrentPage > 1)
+        {
+            <a class="page-link" href="@Url.Action("Index", new { id = ViewBag.CategoryId, searchTerm = ViewBag.SearchTerm, pageNumber = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })">Previous</a>
+        }
+        else
+        {
+            <span class="page-link">Previous</span>
+        }
+
+    </li>
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { categoryId = ViewBag.CategoryId, searchTerm = ViewBag.SearchTerm, pageNumber = i, pageSize = ViewBag.PageSize })">@i</a>
+        </li>
+    }
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <li class="page-item">
+            <a class="page-link" href="@Url.Action("Index", new { categoryId = ViewBag.CategoryId, searchTerm = ViewBag.SearchTerm, pageNumber = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })">Next</a>
+        </li>
+    }
+    else
+    {
+        <li class="page-item disabled">
+            <span class="page-link">Next</span>
+        </li>
+    }
 </ul>
-
-

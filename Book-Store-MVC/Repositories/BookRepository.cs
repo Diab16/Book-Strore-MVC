@@ -15,23 +15,25 @@ namespace Book_Store_MVC.Repositories
             books = context.Set<Book>();
         }
 
-        public IEnumerable<Book> GetAll(int categoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
+        public IQueryable<Book> GetAll(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
         {
-            IEnumerable<Book> result;
-            if (categoryId == 0 && searchTerm == "")
+            IQueryable<Book> result;
+            if (id == 0 && searchTerm == null)
             {
-                result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
-            else if (categoryId != 0 && searchTerm == "")
+            else if (id != 0 && searchTerm == null)
             {
-                result = books.Where(b => categoryId == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                result = books.Where(b => id == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
             else
             {
                 searchTerm = searchTerm.ToLower();
-                result = books.Where(b => b.Title.ToLower() == searchTerm || b.Author.Name.ToLower() == searchTerm || b.Publisher.Name.ToLower() == searchTerm).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                result = books.Where(b => b.Title.ToLower().Contains(searchTerm)  || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
             return result;
         }
+
+    
     }
 }

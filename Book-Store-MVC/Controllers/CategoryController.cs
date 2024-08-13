@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,14 @@ namespace Book_Store_MVC.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly BookStoreContext bookStore;
+       
+        private readonly IGenericRepository<Category> genericCategorey;
         private readonly IMapper mapper;
 
-        public CategoryController(BookStoreContext bookStore, IMapper mapper)
+        public CategoryController(IGenericRepository<Category> genericCategorey, IMapper mapper)
         {
-            this.bookStore = bookStore;
+           
+            this.genericCategorey = genericCategorey;
             this.mapper = mapper;
         }
 
@@ -21,7 +24,7 @@ namespace Book_Store_MVC.Controllers
         // GET: CategoryController
         public ActionResult Index()
         {
-            List<Category> categories = bookStore.Category.ToList();
+            List<Category> categories = genericCategorey.GetAll().ToList();
             return View(categories);
         }
 
@@ -41,8 +44,8 @@ namespace Book_Store_MVC.Controllers
         {
              if(ModelState.IsValid)
             {
-                bookStore.Category.Add(category);
-                bookStore.SaveChanges();
+                genericCategorey.Add(category);
+                genericCategorey.Save();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -55,7 +58,7 @@ namespace Book_Store_MVC.Controllers
       
         public ActionResult Edit(int id)
         {
-            var category = bookStore.Category.Find(id);
+            var category = genericCategorey.GetById(id);
             return View(category);
         }
 
@@ -65,10 +68,10 @@ namespace Book_Store_MVC.Controllers
         {
               if(ModelState.IsValid)
               {
-                Category categorydb = bookStore.Category.Find(category.Id);
+                Category categorydb =genericCategorey.GetById(category.Id);
                 categorydb.Name = category.Name;
-                bookStore.Update(categorydb);
-                bookStore.SaveChanges();
+                genericCategorey.Update(categorydb);
+                genericCategorey.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -77,7 +80,7 @@ namespace Book_Store_MVC.Controllers
 
         public ActionResult Delete(int id)
         {
-            var category = bookStore.Category.Find(id);
+            var category = genericCategorey.GetById(id);
             return View(category);
         }
 
@@ -88,9 +91,9 @@ namespace Book_Store_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                var categorydb = bookStore.Category.Find(category.Id);
-                bookStore.Category.Remove(categorydb);
-                bookStore.SaveChanges();
+                var categorydb = genericCategorey.GetById(category.Id);
+                genericCategorey.Delete(categorydb);
+                genericCategorey.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(category);

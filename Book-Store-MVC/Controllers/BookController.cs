@@ -14,84 +14,47 @@ namespace Book_Store_MVC.Controllers
 {
     public class BookController : Controller
     {
-        private readonly IGenericRepository<Book> genericRepository;
+        private readonly BookRepository  genericRepository;
         private readonly IGenericRepository<Category> catgenericRepository;
         private readonly IGenericRepository<Author> aurhrepo;
-
-        private readonly BookStoreContext bookStore;
         private readonly IMapper mapper;
-       
+        private readonly IGenericRepository<Models.Publisher> publisherrepo;
 
-        //public BookController(BookStoreContext bookStore , IMapper mapper )
-        //{
-        //    this.bookStore = bookStore;
-        //    this.mapper = mapper;
-        //}
-
-
-        public BookController(IGenericRepository<Book> genericRepository, IGenericRepository<Category> catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
-          BookStoreContext bookStore)
+        public BookController(BookRepository genericRepository, IGenericRepository<Category> catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
+         IGenericRepository<Models.Publisher> publisherrepo )
         {
             this.genericRepository = genericRepository;
             this.catgenericRepository = catgenericRepository;
             this.aurhrepo = aurhrepo;
             this.mapper = mapper;
-         
-            this.bookStore = bookStore;
+            this.publisherrepo = publisherrepo;
+        
         }
 
 
         #region Index
-        public ActionResult Index(int id, string Search)
+        public ActionResult Index(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
         {
-            // var bookowithnoinclude = genericRepository.GetAll().AsQueryable();
-            var books = genericRepository.GetAll(b => b.Category, b => b.Author, b => b.Publisher).ToList();
-
+            List<Book> books = genericRepository.GetAll(id, searchTerm, pageNumber , pageSize).ToList(); 
+            int totalbooks = books.Count;
+            int totalpages = (int)Math.Ceiling((double)totalbooks / pageSize); ;
             List<Category> categories = catgenericRepository.GetAll().Select(c => new Category
             {
                 Id = c.Id,
                 Name = c.Name
             }).ToList();
-
-            if (id == 0 && Search == null)
-            {
-                //  List<Book> books = bookStore.Books.Include(b => b.Category).Include(b => b.Author).Include(b => b.Publisher).ToList();
-             
-                ViewBag.Category = categories;
-                return View(books);
-            }
-            else if (id != 0 && Search == null)
-            {
-                 books = books.Where(b=>b.CategoryId == id).ToList();
-                ViewBag.Category = categories;
-                return View(books);
-            }
-            else
-            {
-                string lowerSearch = Search.ToLower();
-
-                  books = books
-                    .Where(c => c.Author.Name.ToLower().Contains(lowerSearch) ||
-                                c.Publisher.Name.ToLower().Contains(lowerSearch) ||
-                                c.Title.ToLower().Contains(lowerSearch)).ToList();    
-                
-                   ViewBag.Category = categories;
-                   return View(books);
-
-            }
-
-
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = totalpages;
+            ViewBag.CategoryId = id;
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Category = categories;
+            return View(books);
 
         }
         #endregion
 
-        #region Filter
-        //public ActionResult Filter(int id)
-        //{
-        //    List<Book> books = genericRepository.GetAll().Where(c => c.Id == id).ToList();
-        //    return View(books);
-        //}
-        #endregion
+      
 
         #region Details
         // GET: BookController/Details/5
@@ -116,7 +79,7 @@ namespace Book_Store_MVC.Controllers
 
             viewModel.Categorylist = catgenericRepository.GetAll().ToList();
             viewModel.Authorlist = aurhrepo.GetAll().ToList();
-            viewModel.publisherlist = bookStore.Publisher.ToList();
+            viewModel.publisherlist = publisherrepo.GetAll().ToList();
 
             return View(viewModel);
 
@@ -148,7 +111,7 @@ namespace Book_Store_MVC.Controllers
                 }; 
 
                 var author = aurhrepo.GetById(bookmaped.AuthorId);
-                var publisher = bookStore.Publisher.Find(bookmaped.PublisherId);
+                var publisher = publisherrepo.GetById(bookmaped.PublisherId);
               //  var publisher = publisherrepo.GetById(bookmaped.PublisherId);
 
                 if (author != null)
@@ -167,7 +130,7 @@ namespace Book_Store_MVC.Controllers
                 }
             bookmaped.Categorylist = catgenericRepository.GetAll().ToList();
             bookmaped.Authorlist = aurhrepo.GetAll().ToList();
-            bookmaped.publisherlist = bookStore.Publisher.ToList();
+            bookmaped.publisherlist = publisherrepo.GetAll().ToList();
 
             return View(bookmaped);
 
@@ -187,7 +150,7 @@ namespace Book_Store_MVC.Controllers
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
             viewModel.Categorylist = catgenericRepository.GetAll().ToList();
             viewModel.Authorlist = aurhrepo.GetAll().ToList();
-            viewModel.publisherlist = bookStore.Publisher.ToList();
+            viewModel.publisherlist = publisherrepo.GetAll().ToList();
             viewModel.ImageUrl = book.ImageUrl;
             return View(viewModel);
 
@@ -219,7 +182,7 @@ namespace Book_Store_MVC.Controllers
 
 
                 var author = aurhrepo.GetById(bookmodel.AuthorId);
-                var publisher = bookStore.Publisher.Find(bookmodel.PublisherId);
+                var publisher = publisherrepo.GetById(bookmodel.PublisherId);
 
                 if (author != null)
                 {
@@ -236,7 +199,7 @@ namespace Book_Store_MVC.Controllers
             }
             bookmodel.Categorylist = catgenericRepository.GetAll().ToList();
             bookmodel.Authorlist = aurhrepo.GetAll().ToList();
-            bookmodel.publisherlist = bookStore.Publisher.ToList();
+            bookmodel.publisherlist = publisherrepo.GetAll().ToList();
 
             return View(bookmodel);
         }

@@ -29,10 +29,15 @@ namespace Book_Store_MVC
 
             //adding Di  "temp"
             builder.Services.AddScoped<BookStoreContext>();
-            builder.Services.AddScoped<IGenericRepository<Book> , BookRepository>();
+            builder.Services.AddScoped< BookRepository>();
             builder.Services.AddScoped<IGenericRepository<Author> , AuthorRepository>();
             builder.Services.AddScoped<IGenericRepository<Category> , CategoryRepository>();
-         
+            builder.Services.AddScoped<IGenericRepository<Publisher>, PublisherRepository>();
+            builder.Services.AddScoped<IGenericRepository<Category>, CategoryRepository>();
+
+
+
+
 
 
             builder.Services.AddAutoMapper(M => M.AddProfile(new BookMapProfile()));
