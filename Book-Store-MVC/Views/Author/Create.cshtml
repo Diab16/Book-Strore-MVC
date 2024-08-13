@@ -1,4 +1,4 @@
-﻿@model Author
+﻿@model AuthorViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -7,11 +7,21 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control"/>
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="AuthorName"></label>
+        <input asp-for="AuthorName" class="form-control"/>
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+    </div>
+  
+    <div class="form-group ">
+        <label asp-for="Description" class="control-label">Description</label>
+        <input  asp-for="Description" class="form-control " />
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+
+
+
+    <button type="submit" class="btn btn-primary">Add Author</button>
     <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+
 </form>

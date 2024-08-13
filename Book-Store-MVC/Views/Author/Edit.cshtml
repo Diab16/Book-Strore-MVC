@@ -1,0 +1,28 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1>Edit</h1>
+
+<section class="bg-light rounded-3 m-5">
+    <form class="p-4" action="/Author/Edit/@Model.Id" method="post">
+        <h4 class="p-2"> <i class="fa-solid fa-pen-to-square"></i> Edit Author</h4>
+
+        <div class="form-group p-1">
+            <label asp-for="Name" class="form-label">Author Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group p-1">
+            <label asp-for="Name" class="form-label">Author Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1">
+            <button type="submit" class="btn btn-primary">Edit</button>
+            <a asp-action="Index" asp-controller="Author" class="btn">Back to list</a>
+        </div>
+    </form>
+</section>

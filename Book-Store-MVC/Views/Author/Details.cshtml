@@ -1,28 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Details";
-}
+﻿<section class="rounded-3 m-5">
+    <div class="d-flex align-items-center justify-content-lg-around bg-light rounded-3 m-5">
+        <div class="card-body position-relative text-black">
+            <h4 class="card-title">@Model.Name</h4>          
+            <h5 class="card-text text-info">Books by @Model.Name:</h5>
+            <ul>
+                @foreach (var book in Model.Books)
+                {
+                    <li>@book.Title</li>
+                }
+            </ul>
 
-<h1>Details Page</h1>
-<h2>@Model.Name</h2>
-
-<h3>Books Made by The Author @Model.Name</h3>
-<ul>
-    @foreach (var book in Model.Books)
-    {
-        <li>@book.Title</li>
-       
-    }
-</ul>
-
-<a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
-@section navbar {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="signout">Log Out</a>
-    </li>
-}
+            @if (User.IsInRole("admin") || User.IsInRole("author"))
+            {
+                <a class="btn m-1" href="/Author/Edit?id=@Model.Id"><i class="fa-solid fa-pen"></i> Edit</a>
+                <a class="btn m-1" href="/Author/Delete?id=@Model.Id"><i class="fa-solid text-danger fa-trash"></i> Delete</a>
+            }
+        </div>
+    </div>
+    <a href="@Url.Action("Index")" class="btn btn-secondary m-5">Back to List</a>
+</section>
