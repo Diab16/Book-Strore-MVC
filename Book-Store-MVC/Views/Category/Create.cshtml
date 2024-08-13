@@ -1,0 +1,22 @@
+﻿
+@model Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" asp-action="Create" asp-controller="Category" enctype="multipart/form-data">
+      
+        <h4 class="p-2"> <i class="fa-solid fa-book"></i>  New Category</h4>
+
+        <partial name="PartialView/EditDeletePartialView" />
+
+        <div class="form-group p-1">
+            <input type="submit" value="Add " class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="Category" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>

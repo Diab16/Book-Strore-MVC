@@ -1,19 +1,138 @@
-﻿@{
+﻿
+@model List<Book>
+
+@{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-@section navbar {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="signout">Log Out</a>
-    </li>
-}
+<section class="bg-light m-4 rounded-3 m-5 ">
+    <div class="row ">
+        <div class="col-sm-12 col-md-10 col-lg-12">
+            <div id="carouselExampleCaptions" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active rounded-circle  " style="width: 20px ; height: 20px;" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class=" rounded-circle " style="width: 20px ; height: 20px;" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="rounded-circle " style="width: 20px ; height: 20px;" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item  active">
+                        <div class="  p-2  text-center d-none d-md-block">
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <img src="~/imges/16951.jpg" alt="" class="rounded-circle img-fluid w-25 ">
+                                <h1 class="p-3 sofia-regular">Book Mart...Get Lost in the Pages</h1>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="carousel-item  ">
+                        <div class=" p-5  text-center d-none d-md-block">
+                            <div class="d-flex  p-4 justify-content-evenly align-items-center">
+                                <img src="~/imges/4891721.jpg" alt="" class="  img-fluid w-25 ">
+                                <h1 class=" sofia-regular">Discover.., Dream.., Dive In...</h1>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="carousel-item  ">
+                        <div class="  p-2  text-center d-none d-md-block">
+                            <div class="d-flex justify-content-evenly align-items-center">
+                                <img src="~/imges/6920933.jpg" alt="" class="rounded-circle img-fluid w-25 ">
+                                <h1 class="p-3 sofia-regular">Where Every Book is a Treasure ....</h1>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-5">
+
+    <div class="container ">
+  
+       <h4>Best Sellers</h4>
+
+        <div class="row g-3">
+            @foreach (var book in Model)
+            {
+                <a asp-action="Details" asp-route-id="@book.Id" asp-controller="Book" class="text-decoration-none col-sm-6 col-md-3 col-lg-3">
+                    <div class="  rounded-3 m-3 ">
+                        <img class="card-img-top rounded-3" src="~/imges/@book.ImageUrl" alt="Card image">
+                        <div class="card-body   position-relative text-black">
+                            <h4 class="card-title">@book.Title</h4>
+                            <p class="card-text ">@book.Description</p>
+                          
+                        </div>
+                    </div>
+                </a>
+
+            }
+
+        </div>
+
+    </div>
+
+
+
+</section>
+
+<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-5">
+
+    <div class="container ">
+
+        <footer class=" mt-4 p-5 font-family">
+            <div class="container">
+                <div class="d-flex flex-column justify-content-evenly">
+                    <h4>Get The Book Mart App </h4>
+                    <p>Download Here</p>
+                  
+                    <div class="d-flex  w-100">
+                        <input type="email" placeholder="Email" class="form-control w-75">
+                        <button class="btn btn-info mx-3 px-5 text-white ">Share our Link</button>
+                    </div>
+                </div>
+                <div class="border-top  d-flex justify-content-between py-2 my-4 align-items-center ">
+
+
+                    <div class="d-flex justify-content-end  w-75 ">
+
+                        <div class="w-25 align-items-center ">
+                            
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+    </div>
+
+     </footer>
+
+</section>
+
+
+

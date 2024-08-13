@@ -8,17 +8,21 @@ namespace Book_Store_MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly BookStoreContext bookStoreContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger  , BookStoreContext bookStoreContext)
         {
             _logger = logger;
+            this.bookStoreContext = bookStoreContext;
         }
-        [Authorize]
-
+     
+     
         public IActionResult Index()
         {
-            return View();
+            List<Book> books = bookStoreContext.Books.Take(4).ToList();
+            return View(books);
         }
+
         [Authorize]
         public IActionResult Privacy()
         {

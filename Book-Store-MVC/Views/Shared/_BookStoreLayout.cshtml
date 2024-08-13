@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Book_Store_MVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Playwrite+HU:wght@100..400&family=Sofia&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+    <partial name="NavPartialView" />
+    <section class="vh-100  parent pt-5 ">
+
+        <div class=" ch1  bg-light ">
+
+            <ul class="navbar-nav me-auto mb-2 p-4 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-black active " asp-action="Index" asp-controller="Home"><i class="fa-solid fa-house"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black " asp-action="Index" asp-controller="Book"> <i class="fa-solid fa-compass"></i> All Books </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black " asp-action="Index" asp-controller="Category"> <i class="fa-solid fa-compass"></i> Categories </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-black " href="#" tabindex="-1" ><i class="fa-solid fa-feather"></i>  Authors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black " href="#" tabindex="-1"> <i class="fa-solid fa-file"></i> Publishers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black " href="#" tabindex="-1"><i class="fa-solid fa-cart-shopping"></i>  Cart</a>
+                </li>
+                <br />
+                <br />
+                <hr />
+
+             @*    @if (User.IsInRole("Admin"))  
+                { *@
+                    <li class="nav-item">
+                        <a class="nav-link text-black " href="#" tabindex="-1" ><i class="fa-solid fa-user"></i>  Manage Users</a>
+                    </li>
+@*                 } *@
+
+                
+                <li class="nav-item">
+                    <a class="nav-link text-black " href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-gear"></i> Orders</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ch2 ">
+            <main role="main" class="">
+                @RenderBody()
+            </main>
+        </div>
+
+
+
+
+
+    </section>
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#Temp').fadeOut('slow');
+            }, 1000); // Adjust time as needed (3000ms = 3 seconds)
+        });
+    </script>
+
+</body>
+</html>

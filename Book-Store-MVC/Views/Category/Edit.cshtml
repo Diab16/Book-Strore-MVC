@@ -1,0 +1,24 @@
+﻿
+@model Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" method="post" action="/Category/Edit/@Model.Id" enctype="multipart/form-data">
+
+        <h4 class="p-2"> <i class="fa-solid fa-book"></i>  Edit Category</h4>
+
+        <partial name="PartialView/EditDeletePartialView" />
+
+        <div class="form-group p-1">
+            <input type="submit" value="Edit " class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="Category" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>
+
