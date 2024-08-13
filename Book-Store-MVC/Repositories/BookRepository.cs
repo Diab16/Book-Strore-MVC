@@ -15,7 +15,12 @@ namespace Book_Store_MVC.Repositories
             books = context.Set<Book>();
         }
 
-        public IQueryable<Book> GetAll(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
+        public int Count()
+        {
+            return books.Count();
+        }
+
+        public IEnumerable<Book> GetAll(int categoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
         {
             IQueryable<Book> result;
 
