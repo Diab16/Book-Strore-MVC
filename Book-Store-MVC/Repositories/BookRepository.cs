@@ -18,9 +18,12 @@ namespace Book_Store_MVC.Repositories
         public IQueryable<Book> GetAll(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
         {
             IQueryable<Book> result;
+
             if (id == 0 && searchTerm == null)
             {
+
                 result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
             }
             else if (id != 0 && searchTerm == null)
             {
@@ -29,11 +32,34 @@ namespace Book_Store_MVC.Repositories
             else
             {
                 searchTerm = searchTerm.ToLower();
-                result = books.Where(b => b.Title.ToLower().Contains(searchTerm)  || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+                result = books.Where(b => b.Title.ToLower().Contains(searchTerm) || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
+
+
             return result;
         }
 
-    
+
+        //    public IQueryable<Book> GetAll(out int TotalPages, int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
+        //    {
+        //        IQueryable<Book> resultbeforpagination = books.Include(b => b.Author).Include(b => b.Publisher);
+
+        //        if (id != 0 && searchTerm == null)
+        //        {
+        //            resultbeforpagination = books.Where(b => id == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher);
+        //        }
+        //        else
+        //        {
+        //            searchTerm = searchTerm.ToLower();
+        //            resultbeforpagination = books.Where(b => b.Title.ToLower().Contains(searchTerm) || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher);
+        //        }
+
+        //        TotalPages = resultbeforpagination.Count();
+        //        var result = resultbeforpagination.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+        //        return result;
+        //    }
+
+        //} 
     }
-}
+    }

@@ -15,12 +15,14 @@ namespace Book_Store_MVC.Controllers
     public class BookController : Controller
     {
         private readonly BookRepository  genericRepository;
-        private readonly IGenericRepository<Category> catgenericRepository;
+        //   private readonly IGenericRepository<Category> catgenericRepository;
+           private readonly CategoryRepository catgenericRepository;
+
         private readonly IGenericRepository<Author> aurhrepo;
         private readonly IMapper mapper;
         private readonly IGenericRepository<Models.Publisher> publisherrepo;
 
-        public BookController(BookRepository genericRepository, IGenericRepository<Category> catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
+        public BookController(BookRepository genericRepository, CategoryRepository catgenericRepository, IGenericRepository<Author> aurhrepo ,  IMapper mapper ,
          IGenericRepository<Models.Publisher> publisherrepo )
         {
             this.genericRepository = genericRepository;
@@ -35,20 +37,21 @@ namespace Book_Store_MVC.Controllers
         #region Index
         public ActionResult Index(int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
         {
-            List<Book> books = genericRepository.GetAll(id, searchTerm, pageNumber , pageSize).ToList(); 
-            int totalbooks = books.Count;
-            int totalpages = (int)Math.Ceiling((double)totalbooks / pageSize); ;
+            List<Book> books = genericRepository.GetAll( id, searchTerm, pageNumber , pageSize).ToList(); 
+           int total = books.Count();
+            int pages = (int)Math.Ceiling((double)total / pageSize); ;
             List<Category> categories = catgenericRepository.GetAll().Select(c => new Category
             {
                 Id = c.Id,
                 Name = c.Name
             }).ToList();
-            ViewBag.CurrentPage = pageNumber;
-            ViewBag.TotalPages = totalpages;
+            ViewBag.CurrentPage = pageNumber; // Current page number
+            ViewBag.TotalPages = pages;  // Total number of pages
             ViewBag.CategoryId = id;
             ViewBag.SearchTerm = searchTerm;
             ViewBag.PageSize = pageSize;
             ViewBag.Category = categories;
+
             return View(books);
 
         }
