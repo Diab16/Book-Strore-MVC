@@ -14,7 +14,21 @@ namespace Book_Store_MVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var publishers = _context.Publisher.Include(p => p.Books).ToList();
+            return View(publishers);
         }
+        public IActionResult Details(int id)
+        {
+            var publisher = _context.Publisher.Include(p => p.Books)
+                            .FirstOrDefault(p => p.Id == id);
+
+            if (publisher == null)
+            {
+                return NotFound();
+            }
+
+            return View(publisher);
+        }
+
     }
 }
