@@ -9,8 +9,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
              @if (User.Identity.IsAuthenticated)
              {
-                <form action="@Url.Action("Index")" class="d-flex">
-                    <input name="Search" class="form-control Maincolor searshboreder ms-4  " type="search" placeholder="Search" aria-label="Search">
+                <form asp-action="Index"  class="d-flex">
+                    <input name="searchTerm" class="form-control Maincolor searshboreder ms-4  " type="search" placeholder="Search" aria-label="Search">
 
                 </form>
              }
@@ -19,7 +19,7 @@
                  @if (User.Identity.IsAuthenticated)
                  {
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Logout", "Account")">Logout</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="SignOut">Logout</a>
                     </li>
 
                    

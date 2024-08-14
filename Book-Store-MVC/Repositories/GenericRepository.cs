@@ -1,6 +1,7 @@
 ﻿using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Book_Store_MVC.Repositories
 {
@@ -29,9 +30,11 @@ namespace Book_Store_MVC.Repositories
         }
 
         public IEnumerable<T> GetAll()
-        {
+        {   
+            
             return DBset.ToList();
         }
+     
 
         public T GetById(int id)
         {

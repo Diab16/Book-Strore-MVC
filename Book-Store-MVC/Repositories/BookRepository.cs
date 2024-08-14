@@ -15,23 +15,56 @@ namespace Book_Store_MVC.Repositories
             books = context.Set<Book>();
         }
 
-        public IEnumerable<Book> GetAll(int categoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
+        public int Count()
         {
-            IEnumerable<Book> result;
-            if (categoryId == 0 && searchTerm == "")
+            return books.Count();
+        }
+
+        public IEnumerable<Book> GetAll(int CategoryId = 0, string searchTerm = "", int pageNumber = 1, int pageSize = 10)
+        {
+            IQueryable<Book> result;
+
+            if (CategoryId == 0 && searchTerm == null)
             {
-                result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+                result = books.Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
             }
-            else if (categoryId != 0 && searchTerm == "")
+            else if (CategoryId != 0 && searchTerm == null)
             {
-                result = books.Where(b => categoryId == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                result = books.Where(b => CategoryId == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
             else
             {
                 searchTerm = searchTerm.ToLower();
-                result = books.Where(b => b.Title.ToLower() == searchTerm || b.Author.Name.ToLower() == searchTerm || b.Publisher.Name.ToLower() == searchTerm).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                result = books.Where(b => b.Title.ToLower().Contains(searchTerm) || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher).Skip((pageNumber - 1) * pageSize).Take(pageSize);
             }
+
+
             return result;
         }
+
+
+        //    public IQueryable<Book> GetAll(out int TotalPages, int id = 0, string searchTerm = null, int pageNumber = 1, int pageSize = 10)
+        //    {
+        //        IQueryable<Book> resultbeforpagination = books.Include(b => b.Author).Include(b => b.Publisher);
+
+        //        if (id != 0 && searchTerm == null)
+        //        {
+        //            resultbeforpagination = books.Where(b => id == b.CategoryId).Include(b => b.Author).Include(b => b.Publisher);
+        //        }
+        //        else
+        //        {
+        //            searchTerm = searchTerm.ToLower();
+        //            resultbeforpagination = books.Where(b => b.Title.ToLower().Contains(searchTerm) || b.Author.Name.ToLower().Contains(searchTerm) || b.Publisher.Name.ToLower().Contains(searchTerm)).Include(b => b.Author).Include(b => b.Publisher);
+        //        }
+
+        //        TotalPages = resultbeforpagination.Count();
+        //        var result = resultbeforpagination.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+        //        return result;
+        //    }
+
+        //} 
     }
-}
+    }
