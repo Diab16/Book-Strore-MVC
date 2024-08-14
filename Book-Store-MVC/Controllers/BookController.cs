@@ -6,6 +6,7 @@ using Book_Store_MVC.Repositories;
 using Book_Store_MVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Security.Policy;
@@ -234,8 +235,6 @@ namespace Book_Store_MVC.Controllers
             return View(bookmodel);
         }
         #endregion
-
-
 
     }
 }
