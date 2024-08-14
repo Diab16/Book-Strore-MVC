@@ -1,4 +1,6 @@
-﻿namespace Book_Store_MVC.IRepositories
+﻿using System.Linq.Expressions;
+
+namespace Book_Store_MVC.IRepositories
 {
     public interface IGenericRepository<T> where T : class
     {
