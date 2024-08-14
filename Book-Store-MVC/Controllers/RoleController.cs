@@ -3,6 +3,7 @@ using Day2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Day2.Controllers
 {
@@ -60,7 +61,24 @@ namespace Day2.Controllers
                 ApplicationUser user = await userManager.FindByEmailAsync(roleVM.UserEmail);
                 if (result != null && user != null)
                 {
+                    var subRole = userManager.GetRolesAsync(user).Result[0];
+                    
+                    if (subRole != null)
+                    {
+                        await userManager.RemoveFromRoleAsync(user, subRole);
+                        Claim oldclaim = new Claim("role", subRole);
+                        Claim newclaim = new Claim("role", roleVM.RoleName);
+                        await userManager.ReplaceClaimAsync(user, oldclaim, newclaim);
+                    }
+                    else
+                    {
+                        Claim newclaim = new Claim("role", roleVM.RoleName);
+                        await userManager.AddClaimAsync(user, newclaim);
+                    }
+                    
                     await userManager.AddToRoleAsync(user, roleVM.RoleName);
+                    
+                    
                     return RedirectToAction("login", "account");
                 }
                 ModelState.AddModelError("", "User or Role Not Found");

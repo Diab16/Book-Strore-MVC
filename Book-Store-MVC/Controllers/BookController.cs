@@ -4,6 +4,7 @@ using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Book_Store_MVC.Repositories;
 using Book_Store_MVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System.Security.Policy;
 
 namespace Book_Store_MVC.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly BookRepository  bookRepository;
