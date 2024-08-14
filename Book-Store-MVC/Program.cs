@@ -29,6 +29,9 @@ namespace Book_Store_MVC
 
             //adding Di  "temp"
             builder.Services.AddScoped<BookStoreContext>();
+
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+
             builder.Services.AddScoped< BookRepository>();
             builder.Services.AddScoped< CategoryRepository>();
             builder.Services.AddScoped< UserRepository>();
@@ -38,6 +41,7 @@ namespace Book_Store_MVC
             builder.Services.AddScoped<IGenericRepository<Publisher>, PublisherRepository>();
             builder.Services.AddScoped<IGenericRepository<Category>, CategoryRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 

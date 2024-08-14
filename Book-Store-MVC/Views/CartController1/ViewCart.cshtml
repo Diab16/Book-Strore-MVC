@@ -1,0 +1,43 @@
+﻿@model List<CartItem>
+
+<h2 class="text-center my-4">Your Cart</h2>
+
+<div class="container">
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ProductName</h5>
+                            <p class="card-text">Quantity: @item.Quantity</p>
+                            <p class="card-text">
+                                <strong>Price: @item.Price.ToString("C")</strong>
+                            </p>
+                            <p class="card-text">
+                                <strong>Total: @(item.Price * item.Quantity).ToString("C")</strong>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                @Html.ActionLink("Remove", "RemoveFromCart", new { productId = item.ProductId }, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="col-12 mt-4">
+                <h5 class="text-right">Total: @Model.Sum(x => x.Price * x.Quantity).ToString("C")</h5>
+            </div>
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    Your cart is empty. Start adding items!
+                </div>
+            </div>
+        }
+    </div>
+</div>
