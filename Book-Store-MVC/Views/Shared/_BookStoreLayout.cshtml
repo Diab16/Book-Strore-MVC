@@ -14,7 +14,7 @@
 <body>
 
 
-    <partial name="NavPartialView" />
+    <partial name="NavPartialView"/>
     <section class="vh-100  parent pt-5 ">
 
         <div class=" ch1  bg-light ">
@@ -43,12 +43,12 @@
                 <br />
                 <hr />
 
-             @*    @if (User.IsInRole("Admin"))  
-                { *@
+                @if (User.IsInRole("Admin"))  
+                { 
                     <li class="nav-item">
-                        <a class="nav-link text-black " href="#" tabindex="-1" ><i class="fa-solid fa-user"></i>  Manage Users</a>
+                        <a class="nav-link text-black " asp-action="index" asp-controller="User" tabindex="-1" ><i class="fa-solid fa-user"></i>  Manage Users</a>
                     </li>
-@*                 } *@
+                } 
 
                 
                 <li class="nav-item">
@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="row justify-content-center mt-4">
                     <div class="col-2 mt-5 pt-3 " >
-                        <a class="navbar-brand sofia-regular "style="font-size:30px;" asp-action="index" asp-controller="home"> <i class="fa-solid fa-book iconcolor"></i>  BookMart</a>
+                        <a class="navbar-brand sofia-regular "style="font-size:35px;" asp-action="index" asp-controller="home"> <i class="fa-solid fa-book iconcolor"></i>  BookMart</a>
                     </div>
                     <div class="col-9 text-center">
                         <p class="menu sofia-regular mb-5" style=" font-size:25px;">

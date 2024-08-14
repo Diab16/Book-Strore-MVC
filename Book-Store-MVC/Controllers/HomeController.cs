@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace Book_Store_MVC.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
