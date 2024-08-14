@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,11 +7,11 @@ namespace Book_Store_MVC.Controllers
 {
     public class CartController1 : Controller
     {
-        private readonly BookStoreContext bookStore;
+        private readonly IBookRepository _bookRepository;
 
-        public CartController1(BookStoreContext bookStore)
+        public CartController1(IBookRepository bookRepository)
         {
-            this.bookStore = bookStore;
+            _bookRepository = bookRepository;
         }
 
         private static List<CartItem> cart = new List<CartItem>();
@@ -19,8 +20,8 @@ namespace Book_Store_MVC.Controllers
         [HttpPost]
         public ActionResult AddToCart(int productId, int quantity)
         {
-            // Fetch the book from the database using the DbSet<Book>
-            var book = bookStore.Books.Find(productId); // Assuming Books is your DbSet<Book>
+            // Fetch the book from the repository
+            var book = _bookRepository.GetById(productId);
 
             if (book != null)
             {
@@ -28,8 +29,8 @@ namespace Book_Store_MVC.Controllers
                 {
                     ProductId = book.Id,
                     Quantity = quantity,
-                    ProductName = book.Title, // Ensure this matches your Book model
-                    Price = book.Price // Use the price from the book
+                    ProductName = book.Title,
+                    Price = book.Price
                 };
                 cart.Add(cartItem);
             }
@@ -55,6 +56,7 @@ namespace Book_Store_MVC.Controllers
             return RedirectToAction("ViewCart");
         }
     }
+
 
 
 }
