@@ -44,18 +44,18 @@
                                 <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-info btn-sm">
                                     Details
                                 </a>
-                                @if (User.IsInRole("admin") || User.IsInRole("author"))
-                                {
+@*                                 @if (User.IsInRole("admin") || User.IsInRole("author"))
+ *@                                @* { *@
                                     <a href="@Url.Action("Edit", new { id = author.Id })" class="btn btn-warning btn-sm">
                                         Edit
                                     </a>
                                     <a href="@Url.Action("Delete", new { id = author.Id })" class="btn btn-danger btn-sm">
                                         Delete
                                     </a>
-                                    <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-success btn-sm">
+                                <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-secondary btn-sm">
                                         Add Book
                                     </a>
-                                }
+                                @* } *@
                             </div>
 
                         </div>

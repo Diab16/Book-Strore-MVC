@@ -25,9 +25,6 @@ namespace Book_Store_MVC.Controllers
             return View(categories);
         }
 
-       
-
-       
         public ActionResult Create()
         {
 
