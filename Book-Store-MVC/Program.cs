@@ -24,6 +24,9 @@ namespace Book_Store_MVC
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
                 option.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Youssef"));
+
+                option.UseSqlServer(builder.Configuration.GetConnectionString("csLocal"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
