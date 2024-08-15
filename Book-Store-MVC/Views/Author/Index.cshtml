@@ -1,0 +1,67 @@
+﻿@model List<Author>
+
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<section class="d-flex p-3 justify-content-evenly flex-wrap bg-light m-5 rounded-3">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+            <form asp-action="Search" method="get" class="input-group mb-3">
+                <i class="fa-solid fa-filter input-group-text"></i>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Search authors...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            @if (User.IsInRole("admin") || User.IsInRole("author"))
+            {
+                <a class="btn" asp-action="Create" asp-controller="Author">
+                    <i class="fa-solid fa-plus"></i> Add New Author
+                </a>
+            }
+        </div>
+
+        <div class="row g-3 m-2">
+            @foreach (var author in Model)
+            {
+                <div class="card-group text-decoration-none col-sm-6 col-md-3 col-lg-3">
+                    <div class="card shadow rounded-3">
+                        <!-- Author Image -->
+                        @* <img class="card-img-top img-fluid" src="~/imges/@author.ImageUrl" alt="@author.Name"> *@
+                        <div class="card-body position-relative text-black">
+                            <h4 class="card-title">@author.Name</h4>
+                            <p class="card-text">
+                                <strong>Famous Books:</strong>
+                                <ul>
+                                    @foreach (var book in author.Books)
+                                    {
+                                        <li>@book.Title</li>
+                                    }
+                                </ul>
+                            </p>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+                                    Details
+                                </a>
+                                @if (User.IsInRole("admin") || User.IsInRole("author"))
+                                   {
+                                    <a href="@Url.Action("Edit", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+                                        Edit
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+                                        Delete
+                                    </a>
+                                <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-secondary btn-sm">
+                                        Add Book
+                                    </a>
+                                    } 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

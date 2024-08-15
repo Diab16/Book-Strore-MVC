@@ -1,0 +1,35 @@
+﻿
+@model BookViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<section class="  rounded-3 m-5">
+    
+
+    <div class="d-flex align-items-center justify-content-lg-around bg-light rounded-3 m-5 ">
+
+        <img class="card-img-top w-25 rounded-3" src="~/imges/@Model.ImageUrl" alt="Card image">
+        <div class="card-body   position-relative text-black">
+            <h4 class="card-title">@Model.Title</h4>
+            <p class="card-text ">@Model.Description</p>
+            <p class="card-text  text-info">@Model.Category?.Name</p>
+            <p> <i class="fa-solid fa-dollar-sign"></i> @Model.Price</p>
+             @if (!User.IsInRole("Customer"))
+            {
+                <a class="btn btn-primary" href="#"> <i class="fa-solid fa-cart-shopping"> </i> Add To Cart </a>
+
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn  m-1" href="/Book/Edit?id=@Model.Id"> <i class="fa-solid fa-pen"></i>  Edit </a>
+                <a class="btn  m-1" href="/Book/Delete?id=@Model.Id"> <i class="fa-solid text-danger  fa-trash"></i>  Delete </a>
+            }
+
+        </div>
+    </div>
+
+</section>
+

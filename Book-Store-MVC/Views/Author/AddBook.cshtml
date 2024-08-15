@@ -1,0 +1,22 @@
+﻿@model BookViewModel
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" asp-action="AddBook" asp-controller="Author" enctype="multipart/form-data">
+        @if (TempData["Message"] is not null)
+        {
+            <div id="Temp" class="alert alert-success  ">
+                @TempData["Message"]
+            </div>
+        }
+        <h4 class="p-2"> <i class="fa-solid fa-book"></i>  New Book</h4>
+
+        <partial name="PartialViews/CreateEditPartialView" />
+
+        <div class="form-group p-1">
+            <input type="submit" value="Add " class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="Author" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>

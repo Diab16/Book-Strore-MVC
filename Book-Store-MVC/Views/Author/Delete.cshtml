@@ -1,0 +1,31 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = "Delete Author";
+}
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4><i class="fa-solid fa-trash"></i> Delete Author</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Are you sure you want to delete this author?</h5>
+                    <h4 class="text-info">@Model.Name</h4>
+
+                    <form asp-action="DeleteConfirmed" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this author?');">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                            <a asp-action="Index" asp-controller="Author" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
