@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Playwrite+HU:wght@100..400&family=Sofia&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -54,6 +55,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-black " href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-gear"></i> Orders</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-black " href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-gear"></i> Mode </a>
+                </li>
             </ul>
         </div>
 
@@ -63,7 +68,10 @@
             </main>
             
         </div>
-        <footer class="foot">
+
+
+
+        <footer class="foot bg-light">
             <div class="container">
                 <div class="row justify-content-center mt-4">
                     <div class="col-2 mt-5 pt-3 " >
@@ -71,9 +79,9 @@
                     </div>
                     <div class="col-9 text-center">
                         <p class="menu sofia-regular mb-5" style=" font-size:25px;">
-                            <a asp-action="index" asp-controller="home" class="px-3" style="text-decoration:none;">Home</a>
-                            <a href="#" class="px-3" style="text-decoration:none;">About</a>
-                            <a href="#" class="px-3" style="text-decoration:none;">Contact Us</a>
+                            <a asp-action="index" asp-controller="home" class="px-3 text-black text-decoration-none">Home</a>
+                            <a href="#" class="px-3 text-black text-decoration-none">About</a>
+                            <a href="#" class="px-3 text-black text-decoration-none">Contact Us</a>
                         </p>
                         <ul class="ftco-footer-social p-0">
                             <a href="#" style="text-decoration:none;">

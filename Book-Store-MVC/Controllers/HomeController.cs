@@ -1,4 +1,5 @@
 using Book_Store_MVC.Models;
+using Book_Store_MVC.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,18 +9,26 @@ namespace Book_Store_MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly BookStoreContext bookStoreContext;
+        private readonly BookRepository bookRepository;
+        private readonly CategoryRepository catRepository;
 
-        public HomeController(ILogger<HomeController> logger  , BookStoreContext bookStoreContext)
+
+        public HomeController(ILogger<HomeController> logger  , BookRepository bookRepository, CategoryRepository catRepository)
         {
             _logger = logger;
-            this.bookStoreContext = bookStoreContext;
+            this.bookRepository = bookRepository;
+             this.catRepository = catRepository;
+
+
         }
-     
-     
-        public IActionResult Index()
+
+
+    public IActionResult Index()
         {
-            List<Book> books = bookStoreContext.Books.Take(4).ToList();
+            List<Book> books = bookRepository.GetAll().Take(4).ToList();
+            var categories = catRepository.GetAll();
+            ViewBag.Category = categories;
+
             return View(books);
         }
 
