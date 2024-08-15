@@ -1,4 +1,5 @@
 ﻿@model AuthorViewModel
+<<<<<<< HEAD
 @{
     ViewData["Title"] = "Create";
 }
@@ -25,3 +26,43 @@
     <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
 
 </form>
+=======
+
+@{
+    ViewData["Title"] = "Create Author";
+}
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4>Create New Author</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="AuthorName" class="form-label">Author Name</label>
+                            <input asp-for="AuthorName" class="form-control" />
+                            <span asp-validation-for="AuthorName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Add Author</button>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+>>>>>>> main

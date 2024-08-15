@@ -1,6 +1,7 @@
 ﻿@model Book_Store_MVC.Models.Publisher
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = "Delete";
 }
 
@@ -25,3 +26,35 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+=======
+    ViewData["Title"] = "Delete Publisher";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Delete Publisher</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-danger">Are you sure you want to delete this publisher?</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4">Publisher Name</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+                    </dl>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+>>>>>>> main

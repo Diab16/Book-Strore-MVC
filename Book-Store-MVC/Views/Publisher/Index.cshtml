@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 @{
     ViewData["Title"] = "Index";
@@ -9,11 +10,25 @@
 		<a class="btn" asp-action="Create" asp-controller="Publisher">
 		<i class="fa-solid fa-plus">Create New Publisher</i>
         </a>
+=======
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    @if (User.IsInRole("admin") || User.IsInRole("publisher"))
+    {
+            <a class="btn" asp-action="Create" asp-controller="Publisher">
+                <i class="fa-solid fa-plus"></i> Create New Publisher
+            </a>
+    }
+>>>>>>> main
 </p>
 
 <div class="row">
     @foreach (var item in Model)
     {
+<<<<<<< HEAD
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body"> 
@@ -24,10 +39,41 @@
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Details</a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+=======
+            <div class="col-md-3">
+                <div class="card mb-4 shadow">
+                @*                 images may be edited soon here *@                
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">Publisher</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                            @if (User.IsInRole("admin") || User.IsInRole("publisher"))
+                            {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                        </a>
+                            }
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fa-solid fa-eye"></i> Details
+                                </a>
+                            @if (User.IsInRole("admin") || User.IsInRole("publisher"))
+                            {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fa-solid fa-trash text-danger"></i> Delete
+                                        </a>
+                            }
+                            </div>
+>>>>>>> main
                         </div>
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
     }
 </div>
+=======
+    }
+</div>
+>>>>>>> main

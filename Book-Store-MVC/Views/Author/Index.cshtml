@@ -40,6 +40,7 @@
                                 </ul>
                             </p>
 
+<<<<<<< HEAD
                             <div class="d-flex justify-content-between mt-3">
                                 <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-info btn-sm">
                                     Details
@@ -50,12 +51,28 @@
                                         Edit
                                     </a>
                                     <a href="@Url.Action("Delete", new { id = author.Id })" class="btn btn-danger btn-sm">
+=======
+                            <div class="d-flex justify-content-between">
+                                <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+                                    Details
+                                </a>
+                                @if (User.IsInRole("admin") || User.IsInRole("author"))
+                                   {
+                                    <a href="@Url.Action("Edit", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+                                        Edit
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
+>>>>>>> main
                                         Delete
                                     </a>
                                 <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-secondary btn-sm">
                                         Add Book
                                     </a>
+<<<<<<< HEAD
                                 @* } *@
+=======
+                                    } 
+>>>>>>> main
                             </div>
 
                         </div>

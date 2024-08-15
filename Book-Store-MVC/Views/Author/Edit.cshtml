@@ -1,6 +1,7 @@
 ﻿@model Author
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = "Edit";
 }
 <h1>Edit</h1>
@@ -25,4 +26,40 @@
             <a asp-action="Index" asp-controller="Author" class="btn">Back to list</a>
         </div>
     </form>
+=======
+    ViewData["Title"] = "Edit Author";
+}
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> Edit Author</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/Author/Edit/@Model.Id" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="form-label">Author Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Books" class="form-label">Book Title</label>
+                            <input asp-for="Books" class="form-control" />
+                            <span asp-validation-for="Books" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <a asp-action="Index" asp-controller="Author" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> main
 </section>
