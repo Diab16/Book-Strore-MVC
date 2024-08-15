@@ -1,5 +1,6 @@
-﻿
-@model List<Category>
+﻿@using Day2.Models
+
+@model List<ApplicationUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +17,7 @@
             @if (Model.Count() > 0)
             {
 
-                <a asp-action="Create" class=" btn  mb-4"> <i class="fa-solid fa-plus"></i>  Create New Category </a>
+                <a asp-action="Create" class=" btn  mb-4"> <i class="fa-solid fa-plus"></i>  Add New User </a>
 
 
 
@@ -25,7 +26,7 @@
                     <thead>
                         <tr>
 
-                            <td> Categories</td>
+                            <td> Users</td>
 
                             <td>Edit</td>
                             <td>Delete</td>
@@ -38,16 +39,16 @@
                     <tbody>
 
                         @{
-                            foreach (var category in Model)
+                            foreach (ApplicationUser user in Model)
                             {
                                 <tr>
-                                    <td><i class="fa-solid fa-wand-magic-sparkles"></i>  @category.Name</td>
+                                    <td><i class="fa-solid fa-wand-magic-sparkles"></i>  @user.UserName</td>
 
                                     <td>
-                                        <a class="btn  m-1" href="/Category/Edit?id=@category.Id"> <i class="fa-solid fa-pen"></i>  Edit </a>
+                                        <a class="btn  m-1" href="/User/Edit?id=@user.Id"> <i class="fa-solid fa-pen"></i>  Edit </a>
                                     </td>
                                     <td>
-                                        <a class="btn  m-1" href="/Category/Delete?id=@category.Id"> <i class="fa-solid text-danger  fa-trash"></i>  Delete </a>
+                                        <a class="btn  m-1" href="/User/Delete?id=@user.Id"> <i class="fa-solid text-danger  fa-trash"></i>  Delete </a>
                                     </td>
 
 
@@ -70,9 +71,9 @@
             <div class="d-flex justify-content-between">
                 <div>
                   
-                    @foreach (var cat in Model)
+                    @foreach (ApplicationUser user in Model)
                     {
-                        <a  class="btn button"> @cat.Name</a>
+                        <a  class="btn button"> @user.UserName</a>
 
                     }
                 </div>

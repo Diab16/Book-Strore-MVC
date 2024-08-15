@@ -19,7 +19,7 @@
 
                 }
            </div>
-            @if (!User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin"))
             {
 
 
@@ -39,7 +39,6 @@
                             <h4 class="card-title">@item.Title</h4>
                             <p class="card-text ">@item.Description</p>
                             <p class="card-text  text-info">@item.Category.Name</p>
-
                             <div class=" position-absolute bottom-0  ">
                                 <p> <i class="fa-solid fa-dollar-sign"></i> @item.Price</p>
                             </div>
