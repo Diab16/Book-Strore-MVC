@@ -9,8 +9,10 @@
         <div class="d-flex justify-content-between mb-3">
             <form asp-action="Search" method="get" class="input-group mb-3">
                 <i class="fa-solid fa-filter input-group-text"></i>
-                <input type="text" name="searchTerm" class="form-control" placeholder="Search authors...">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Search authors by name or books">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
             </form>
 
             @if (User.IsInRole("admin") || User.IsInRole("author"))
@@ -24,11 +26,10 @@
         <div class="row g-3 m-2">
             @foreach (var author in Model)
             {
-                <div class="card-group text-decoration-none col-sm-6 col-md-3 col-lg-3">
-                    <div class="card shadow rounded-3">
-                        <!-- Author Image -->
-                        @* <img class="card-img-top img-fluid" src="~/imges/@author.ImageUrl" alt="@author.Name"> *@
-                        <div class="card-body position-relative text-black">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <!-- Adjusted col size for better responsiveness -->
+                    <div class="card shadow rounded-3 h-100">
+                        <div class="card-body text-black d-flex flex-column">
                             <h4 class="card-title">@author.Name</h4>
                             <p class="card-text">
                                 <strong>Famous Books:</strong>
@@ -40,22 +41,26 @@
                                 </ul>
                             </p>
 
-                            <div class="d-flex justify-content-between">
-                                <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
-                                    Details
-                                </a>
-                                @if (User.IsInRole("admin") || User.IsInRole("author"))
-                                   {
-                                    <a href="@Url.Action("Edit", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
-                                        Edit
+                            <div class="mt-auto">
+                                <!-- Push buttons to the bottom if needed -->
+                                <div class="d-flex flex-wrap gap-2 justify-content-between">
+                                    <!-- Flexbox with gap for spacing -->
+                                    <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-outline-secondary">
+                                        <i class="fa-solid fa-eye"></i> Details
                                     </a>
-                                    <a href="@Url.Action("Delete", new { id = author.Id })" class="btn btn-sm btn-outline-secondary">
-                                        Delete
-                                    </a>
-                                <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-secondary btn-sm">
-                                        Add Book
-                                    </a>
-                                    } 
+                                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                                    {
+                                        <a href="@Url.Action("Edit", new { id = author.Id })" class="btn  btn-outline-secondary">
+                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                        </a>
+                                        <a href="@Url.Action("Delete", new { id = author.Id })" class="btn  btn-outline-secondary text-danger">
+                                            <i class="fa-solid fa-trash"></i> Delete
+                                        </a>
+                                        <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-outline-secondary">
+                                            <i class="fa-solid fa-book"></i> Add Book
+                                        </a>
+                                    }
+                                </div>
                             </div>
 
                         </div>

@@ -1,27 +1,15 @@
-<<<<<<< HEAD
-﻿using Book_Store_MVC.Models;
-=======
+using Book_Store_MVC.Models;
 ﻿using AutoMapper;
 using Book_Store_MVC.FileUpload;
 using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.Models;
 using Book_Store_MVC.Repositories;
->>>>>>> main
 using Book_Store_MVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace Book_Store_MVC.Controllers
 {
-<<<<<<< HEAD
-    public class AuthorController : Controller
-    {
-        private readonly BookStoreContext bookStore;
-
-        public AuthorController(BookStoreContext bookStore)
-        {
-            this.bookStore = bookStore;
-=======
     public class AuthorController : Controller { 
         private readonly BookRepository bookRepository;
         private readonly CategoryRepository catgenericRepository;
@@ -40,7 +28,6 @@ namespace Book_Store_MVC.Controllers
             this.aurhrepo = aurhrepo;
             this.mapper = mapper;
             this.publisherrepo = publisherrepo;
->>>>>>> main
         }
         //Index Action: will get the list of aiuthors and theire books 
 
@@ -105,54 +92,6 @@ namespace Book_Store_MVC.Controllers
         [Authorize(Roles = "admin, author")]
         public ActionResult AddBook(int authorId)
         {
-<<<<<<< HEAD
-            var author = bookStore.Author.Include(a => a.Books).FirstOrDefault(a => a.Id == authorId);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new AuthorViewModel
-            {
-                AuthorId = author.Id,
-                AuthorName = author.Name,
-                Categories = bookStore.Category.ToList()
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "admin, author")]
-        public ActionResult AddBook(AuthorViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var author = bookStore.Author.Include(a => a.Books).FirstOrDefault(a => a.Id == viewModel.AuthorId);
-                if (author == null)
-                {
-                    return NotFound();
-                }
-
-                var newBook = new Book
-                {
-                    Title = viewModel.Title,
-                    Description = viewModel.Description,
-                    Price = viewModel.Price,
-                    CategoryId = viewModel.CategoryId
-                };
-
-                author.Books.Add(newBook);
-                bookStore.SaveChanges();
-
-                return RedirectToAction("Details", new { id = author.Id });
-            }
-
-            viewModel.Categories = bookStore.Category.ToList(); // Reload categories if form submission fails
-            return View(viewModel);
-        }
-
-=======
             var author = bookStore.Author.FirstOrDefault(a => a.Id == authorId);
             if (author != null)
             {
@@ -271,7 +210,6 @@ namespace Book_Store_MVC.Controllers
         //    return View(viewModel);
         //}
 
->>>>>>> main
         //edit existed author
         [Authorize(Roles = "admin, author")]
         public ActionResult Edit(int id)

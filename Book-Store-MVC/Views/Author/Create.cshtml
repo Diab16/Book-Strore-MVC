@@ -1,32 +1,4 @@
 ﻿@model AuthorViewModel
-<<<<<<< HEAD
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h2>Create New Author</h2>
-
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="AuthorName"></label>
-        <input asp-for="AuthorName" class="form-control"/>
-        <span asp-validation-for="AuthorName" class="text-danger"></span>
-    </div>
-  
-    <div class="form-group ">
-        <label asp-for="Description" class="control-label">Description</label>
-        <input  asp-for="Description" class="form-control " />
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-
-
-
-    <button type="submit" class="btn btn-primary">Add Author</button>
-    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
-
-</form>
-=======
 
 @{
     ViewData["Title"] = "Create Author";
@@ -35,10 +7,10 @@
 <section class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
-                    <h4>Create New Author</h4>
-                </div>
+        <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4>Create New Author</h4>
+    </div>
                 <div class="card-body">
                     <form asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
@@ -65,4 +37,3 @@
         </div>
     </div>
 </section>
->>>>>>> main
