@@ -1,0 +1,28 @@
+﻿
+﻿<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm bg-light rounded-3">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Name</h4>
+                    <h5 class="card-text text-info">Books by @Model.Name:</h5>
+                    <ul>
+                        @foreach (var book in Model.Books)
+                        {
+                                <li>@book.Title</li>
+                        }
+                    </ul>
+
+                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                    {
+                            <div class="d-flex mt-3">
+                                <a class="btn btn-outline-primary m-1" href="/Author/Edit?id=@Model.Id"><i class="fa-solid fa-pen"></i> Edit</a>
+                                <a class="btn btn-outline-danger m-1" href="/Author/Delete?id=@Model.Id"><i class="fa-solid fa-trash"></i> Delete</a>
+                            </div>
+                    }
+                </div>
+            </div>
+            <a href="@Url.Action("Index")" class="btn btn-secondary mt-4">Back to List</a>
+        </div>
+    </div>
+</section>
