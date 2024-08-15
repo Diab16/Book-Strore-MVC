@@ -24,19 +24,25 @@ namespace Book_Store_MVC
             //abdalla
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("csLocal"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("cslocal"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
             //adding Di  "temp"
             builder.Services.AddScoped<BookStoreContext>();
+
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+
             builder.Services.AddScoped< BookRepository>();
             builder.Services.AddScoped< CategoryRepository>();
+            builder.Services.AddScoped< UserRepository>();
 
             builder.Services.AddScoped<IGenericRepository<Author> , AuthorRepository>();
             builder.Services.AddScoped<IGenericRepository<Category> , CategoryRepository>();
             builder.Services.AddScoped<IGenericRepository<Publisher>, PublisherRepository>();
             builder.Services.AddScoped<IGenericRepository<Category>, CategoryRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 
@@ -67,7 +73,7 @@ namespace Book_Store_MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Book}/{action=Index}/{id?}");
+                pattern: "{controller=account}/{action=login}/{id?}");
 
             app.Run();
         }

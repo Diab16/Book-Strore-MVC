@@ -1,0 +1,60 @@
+﻿
+@model UserManagerViewModel
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group ">
+        <label asp-for="Username" class="control-label">Username</label>
+        <input placeholder="Enter Username" asp-for="Username" class="form-control " />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group ">
+        <label asp-for="UserEmail" class="control-label">Email</label>
+        <input placeholder="Enter  Email" asp-for="UserEmail" class="form-control " />
+        <span asp-validation-for="UserEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group ">
+        <label asp-for="Password" class="control-label">Password</label>
+        <input placeholder="Enter Password" asp-for="Password" class="form-control " />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group  ">
+        <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+        <input placeholder="Confirm Password" asp-for="ConfirmPassword" class="form-control " />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group ">
+        <label asp-for="Address" class="control-label">Address</label>
+        <input placeholder="Enter Address" asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group ">
+        <label asp-for="roleId">Role</label>
+        <select asp-for="roleId" class="rolesDropdown form-control" onchange="setRoleNames()">
+            <option value="">Select a Role</option>
+            @foreach (var role in Model.Roles)
+            {
+                <option value="@role.Id" data-role-name="@role.Name">@role.Name</option>
+            }
+        </select>
+        <input type="hidden" asp-for="roleName" id="roleName" />
+
+    </div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    function setRoleNames() {
+        // Handle Role Name
+        var rolesDropdown = document.getElementsByClassName("rolesDropdown")[0];
+        var selectedRole = rolesDropdown.options[rolesDropdown.selectedIndex];
+        var RoleName = selectedRole.getAttribute("data-role-name");
+        document.getElementById("roleName").value = RoleName;
+       
+    }
+</script>

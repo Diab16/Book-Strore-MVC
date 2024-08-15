@@ -1,0 +1,25 @@
+﻿@using Day2.Models
+
+@model UserManagerViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" method="post" action="/User/Edit/@ViewBag.userId" enctype="multipart/form-data">
+
+        <h4 class="p-2"> <i class="fa-solid fa-user"></i>  Edit User</h4>
+
+        <partial name="PartialView/CreateEditPartialView" />
+
+        <div class="form-group p-1">
+            <input type="submit" value="Edit " class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="User" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>
+

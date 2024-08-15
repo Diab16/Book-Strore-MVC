@@ -2,6 +2,7 @@
 using Day2.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Day2.Controllers
 {
@@ -36,7 +37,9 @@ namespace Day2.Controllers
                 if (result.Succeeded)
                 {
                     //await signInManager.SignInAsync(user, isPersistent: false);
-                   // await userManager.AddToRoleAsync(user,"");
+                    await userManager.AddToRoleAsync(user,"Customer");
+                    Claim Roleclaim = new Claim("role", "Customer");
+                    await userManager.AddClaimAsync(user, Roleclaim);
                     return RedirectToAction("Login");
                 }
                 foreach (var item in result.Errors)
@@ -63,6 +66,7 @@ namespace Day2.Controllers
                     if (found)
                     {
                         await signInManager.SignInAsync(user, userVM.Remember_Me);
+                        
                         return RedirectToAction("Index", "Home");
                     }
                 }       

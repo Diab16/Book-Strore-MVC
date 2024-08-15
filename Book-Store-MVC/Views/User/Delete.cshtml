@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+
+}
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" method="post" action="/User/Deleteuser?emailVM=@Model.UserEmail" novalidate="true">
+
+        <h4 class="p-2"> <i class="fa-solid fa-user"></i>  Delete User</h4>
+
+        <partial name="PartialView/DeletePartialView"/>
+
+        <div class="form-group p-1">
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this User?');" class="btn  m-1"> <i class="fa-solid text-danger  fa-trash"></i>  Delete </button>
+            <a asp-action="Index" asp-controller="User" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>
+
+

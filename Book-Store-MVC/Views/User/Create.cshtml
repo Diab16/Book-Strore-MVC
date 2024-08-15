@@ -1,0 +1,23 @@
+﻿@using Day2.Models
+
+@model UserManagerViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="bg-light rounded-3 m-5">
+
+    <form class="p-4" asp-action="Create" asp-controller="User" enctype="multipart/form-data">
+      
+        <h4 class="p-2"> <i class="fa-solid fa-user"></i>  New User</h4>
+
+        <partial name="PartialView/CreateEditPartialView" />
+
+        <div class="form-group p-1">
+            <input type="submit" value="Add " class="btn btn-primary" />
+            <a asp-action="Index" asp-controller="User" class="btn  ">Back to list</a>
+
+        </div>
+    </form>
+</section>

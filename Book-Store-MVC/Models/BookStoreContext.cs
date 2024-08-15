@@ -1,4 +1,5 @@
 ﻿using Day2.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -149,6 +150,14 @@ namespace Book_Store_MVC.Models
                 new BookOrder { Id = 2, Book_Id = 2, Order_Id = 1, Quantity = 1 },
                 new BookOrder { Id = 3, Book_Id = 3, Order_Id = 2, Quantity = 1 },
                 new BookOrder { Id = 4, Book_Id = 4, Order_Id = 2, Quantity = 3 }
+            );
+
+            // Seed Roles
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Id = "98e90177-faf2-47c9-ae6c-c76302ddd11b", Name="Customer",NormalizedName="CUSTOMER",ConcurrencyStamp=null },
+                new IdentityRole { Id = "d50b4c7a-bf3c-47db-8955-7dece445f068", Name="Admin",NormalizedName="ADMIN",ConcurrencyStamp=null },
+                new IdentityRole { Id = "3478a8ab-bd59-4cea-81e1-c2acbb852ae6", Name="Publisher",NormalizedName="PUBLISHER",ConcurrencyStamp=null },
+                new IdentityRole { Id = "187ed615-82cf-4fe6-a35a-402bf1c13520", Name="Author",NormalizedName="AUTHOR",ConcurrencyStamp=null }
             );
             base.OnModelCreating(modelBuilder);
         }
