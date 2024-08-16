@@ -1,0 +1,45 @@
+﻿@model List<Book_Store_MVC.Models.Order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Orders</h2>
+
+    <div class="card">
+        <div class="card-header">
+            Billing History
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        decimal amount = 0;
+                        if (order.BookOrders != null && order.BookOrders.Any())
+                        {
+                            amount = order.BookOrders.Sum(bo => (decimal)(bo.Book.Price * bo.Quantity));
+                        }
+                        <tr>
+                            <td>#@order.Id</td>
+                            <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                            <td>@amount.ToString("C")</td>
+                            <td>
+                                @Html.ActionLink("View Details", "OrderSummary", "Order", new { orderId = order.Id }, new { @class = "btn btn-sm btn-primary" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
