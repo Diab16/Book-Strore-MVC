@@ -34,16 +34,19 @@
                     </li>
                  }
 
-                 @if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item ms-auto text-danger fs-5 pt-1 ms-4">
                         @{
-                            var s = User.FindFirst("role").Value.ToString();
-                            
+                            var roleClaim = User.FindFirst("role"); // Find the 'role' claim
+                            var s = roleClaim != null ? roleClaim.Value : "No role assigned"; // Safely check if the claim exists
                         }
                         <div class="border-2 border-danger p-1 rounded mx-4" style="border:1px solid black;">
                             @(s)
                         </div>
+                    </li>
+                }
+
                         
 
                     </li>
