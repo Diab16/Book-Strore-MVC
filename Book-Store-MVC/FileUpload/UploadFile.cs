@@ -32,5 +32,25 @@
 
         }
 
+
+
+
+
+
+
+        public static void DeleteFile(string file, string FolderName)
+        {
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", FolderName, file);
+
+
+            if (File.Exists(filepath))
+            {
+                File.Delete(filepath);
+
+            }
+
+
+
+        }
     }
 }

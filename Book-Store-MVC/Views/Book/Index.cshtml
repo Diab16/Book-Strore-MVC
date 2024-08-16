@@ -4,10 +4,14 @@
     ViewData["Title"] = "Home Page";
 }
 
-     
+
+
+
 
 
    <section class=" d-flex p-3 justify-content-evenly flex-wrap bg-light m-5 rounded-3">
+
+
 
       <div class="container ">
           <div class="d-flex justify-content-between">
@@ -18,6 +22,8 @@
                     <a asp-route-id="@cat.Id" class="btn button"> @cat.Name</a>
 
                 }
+
+             
            </div>
             @if (User.IsInRole("Admin"))
             {

@@ -56,11 +56,12 @@
     </div>
     <div class="form-group ">
 
-    <label asp-for="Imagefile" class="col-form-label"></label>
-    <input asp-for="Imagefile" class="form-control" />
-    
- 
-  
+    <div class="form-group">
+        <label asp-for="Imagefile" class="col-form-label">Current Image</label>
+        <input asp-for="Imagefile" class="form-control" type="file" />
+    </div>
+    <input type="hidden" asp-for="ImageUrl" />
+
     </div>
     <div class="form-group ">
         <label asp-for="CategoryId">Category</label>

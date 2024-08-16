@@ -36,7 +36,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("Author", (string)null);
 
                     b.HasData(
                         new
@@ -118,7 +118,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
 
                     b.HasData(
                         new
@@ -221,7 +221,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasIndex("Order_Id");
 
-                    b.ToTable("BookOrder");
+                    b.ToTable("BookOrder", (string)null);
 
                     b.HasData(
                         new
@@ -268,7 +268,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
 
                     b.HasData(
                         new
@@ -318,7 +318,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
 
                     b.HasData(
                         new
@@ -357,7 +357,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
 
                     b.HasData(
                         new
@@ -388,7 +388,7 @@ namespace Book_Store_MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publisher", (string)null);
 
                     b.HasData(
                         new

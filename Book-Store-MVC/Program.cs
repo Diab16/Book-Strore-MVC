@@ -24,7 +24,7 @@ namespace Book_Store_MVC
             //abdalla
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("cslocal"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Alaa"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
@@ -73,7 +73,7 @@ namespace Book_Store_MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=account}/{action=login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

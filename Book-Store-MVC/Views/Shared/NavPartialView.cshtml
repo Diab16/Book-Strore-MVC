@@ -1,13 +1,13 @@
 ﻿
 
-<nav class="navbar navbar-expand-lg fixed-top text-white bg-light navbar-light ">
+<nav class="navbar navbar-expand-lg fixed-top text-white bg-light navbar-light colorBox ">
     <div class="container-fluid">
         <a class="navbar-brand sofia-regular  ms-4" href="#"> <i class="fa-solid fa-book iconcolor"></i>  BookMart</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && ViewContext.RouteData.Values["controller"].ToString() == "Book")
              {
                 <form asp-action="Index"  class="d-flex">
                     <input name="searchTerm" class="form-control Maincolor searshboreder ms-4  " type="search" placeholder="Search Books" aria-label="Search">
@@ -56,3 +56,4 @@
         </div>
     </div>
 </nav>
+

@@ -15,7 +15,7 @@
                 </button>
             </form>
 
-            @if (User.IsInRole("admin") || User.IsInRole("author"))
+            @if (User.IsInRole("Admin"))
             {
                 <a class="btn" asp-action="Create" asp-controller="Author">
                     <i class="fa-solid fa-plus"></i> Add New Author
@@ -48,7 +48,7 @@
                                     <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-outline-secondary">
                                         <i class="fa-solid fa-eye"></i> Details
                                     </a>
-                                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                                    @if (User.IsInRole("Admin") || User.IsInRole("author"))
                                     {
                                         <a href="@Url.Action("Edit", new { id = author.Id })" class="btn  btn-outline-secondary">
                                             <i class="fa-solid fa-pen-to-square"></i> Edit

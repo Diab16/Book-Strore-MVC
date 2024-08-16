@@ -2,10 +2,10 @@
     ViewData["Title"] = "Index";
 }
 
-    @if (User.IsInRole("admin") || User.IsInRole("publisher"))
+    @if (!User.IsInRole("admin") || User.IsInRole("publisher"))
     {
-        <a class="btn" asp-action="Create" asp-controller="Publisher">
-            <i class="fa-solid fa-plus"></i> Create New Publisher
+        <a class="btn m-3" asp-action="Create" asp-controller="Publisher">
+            <i class="fa-solid fa-plus "></i> Create New Publisher
         </a>
     }
 <div class="row g-3 m-2">

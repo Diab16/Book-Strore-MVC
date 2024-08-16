@@ -22,17 +22,34 @@ namespace Book_Store_MVC.Controllers
         {
             // Fetch the book from the repository
             var book = _bookRepository.GetById(productId);
-
+            
             if (book != null)
             {
-                var cartItem = new CartItem
+                var existingCartItem = cart.FirstOrDefault(item => item.ProductId == book.Id);
+
+                if (existingCartItem != null)
                 {
-                    ProductId = book.Id,
-                    Quantity = quantity,
-                    ProductName = book.Title,
-                    Price = book.Price
-                };
-                cart.Add(cartItem);
+                    existingCartItem.Quantity += quantity;
+                }
+                else
+                {
+                    var cartItem = new CartItem
+                    {
+                        ProductId = book.Id,
+                        Quantity = quantity,
+                        ProductName = book.Title,
+                        Price = book.Price,
+                        imgfile = book.ImageUrl,
+
+                    };
+
+
+
+                    cart.Add(cartItem);
+                }
+
+
+            
             }
 
             return RedirectToAction("ViewCart");
