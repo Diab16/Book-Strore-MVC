@@ -72,7 +72,7 @@ namespace Book_Store_MVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=account}/{action=login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

@@ -104,7 +104,15 @@ section .button {
 }
 
 
-imgecircle{
-    width:30%;
-    height:30%;
+.author-img-container {
+    width: 150px;
+    overflow: hidden;
+    border-radius: 50%;
 }
+.author-img-container img {
+        height: 100%;
+        object-fit: fill;
+    }
+
+
+

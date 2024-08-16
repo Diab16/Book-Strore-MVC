@@ -152,8 +152,8 @@ namespace Book_Store_MVC.Controllers
         public ActionResult Edit(int id)
         {
             Book book = bookRepository.GetById(id);
-            ModelState.Remove("Imagefile"); // Remove the validation for Imagefile if editing
             BookViewModel viewModel = mapper.Map<Book, BookViewModel>(book);
+
             viewModel.Categorylist = catgenericRepository.GetAll().ToList();
             viewModel.Authorlist = aurhrepo.GetAll().ToList();
             viewModel.publisherlist = publisherrepo.GetAll().ToList();
@@ -182,7 +182,6 @@ namespace Book_Store_MVC.Controllers
                 book.CategoryId = bookmodel.CategoryId;
                 book.PublisherId = bookmodel.PublisherId;
                 book.AuthorId = bookmodel.AuthorId;
-                book.ImageUrl = bookmodel.ImageUrl; // Ensure ImageUrl is updated correctly
 
 
 
