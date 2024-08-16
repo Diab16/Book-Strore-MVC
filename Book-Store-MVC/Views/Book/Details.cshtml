@@ -13,11 +13,11 @@
             <p class="card-text text-info">@Model.Category?.Name</p>
             <p><i class="fa-solid fa-dollar-sign"></i> @Model.Price</p>
 
-            @if (!User.IsInRole("Customer"))
+            @if (User.IsInRole("Customer"))
             {
                 <form asp-action="AddToCart" asp-controller="CartController1" method="post">
                     <input type="hidden" name="productId" value="@Model.Id" /> <!-- Pass the book ID -->
-                    <input type="number" name="quantity" value="1" min="1" /> <!-- Allow user to specify quantity -->
+                    <input type="number" class="form-control w-50 mb-3" name="quantity" value="1" min="1" /> <!-- Allow user to specify quantity -->
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-cart-shopping"></i> Add To Cart
                     </button>

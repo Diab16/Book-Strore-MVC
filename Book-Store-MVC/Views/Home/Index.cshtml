@@ -65,11 +65,11 @@
 
 </section>
 
-<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-5">
+<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-3">
 
     <div class="container ">
-  
-       <h4>Best Sellers</h4>
+
+        <h4 class="sofia-regular"> <i class="fa-solid fa-star animate__animated  animate__flash "></i>  Best Sellers</h4>
 
         <div class="row g-3">
             @foreach (var book in Model)
@@ -95,19 +95,47 @@
 
 </section>
 
-<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-5">
+
+<section class="bg-light m-5 rounded-3">
+    <div class="container">
+        <div class="w-75 p-4 text-center mx-auto">
+            <h3 class="sofia-regular"><i class="fa-solid fa-feather"></i> Our Top Authors</h3>
+            <div class="d-flex justify-content-center gap-5 mt-4 flex-wrap">
+                <div class="author-img-container">
+                    <img class="img-fluid rounded-circle" src="~/imges/agatha-christie-anniversary-ftr.jpg" alt="Agatha Christie" />
+                </div>
+                <div class="author-img-container">
+                    <img class="img-fluid rounded-circle" src="~/imges/stephenking.jpg" alt="Stephen King" />
+                </div>
+                <div class="author-img-container">
+                    <img class="img-fluid rounded-circle" src="~/imges/georege.jpg" alt="George Orwell" />
+                </div>
+                <div class="author-img-container">
+                    <img class="img-fluid rounded-circle" src="~/imges/jkk.jpg" alt="J.K. Rowling" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class=" d-flex m-5 p-3 justify-content-evenly flex-wrap bg-light m-4 rounded-3">
 
     <div class="container ">
 
-        <footer class=" mt-4 p-5 font-family">
+        <div class=" mt-4 p-5 font-family">
             <div class="container">
                 <div class="d-flex flex-column justify-content-evenly">
                     <h4>Get The Book Mart App </h4>
-                    <p>Download Here</p>
-                  
+                    <p>
+                        Download Here                <i class="fa-brands fa-google-play"></i>     <i class="fa-brands fa-app-store-ios"></i>
+                    </p>
                     <div class="d-flex  w-100">
                         <input type="email" placeholder="Email" class="form-control w-75">
-                        <button class="btn btn-info mx-3 px-5 text-white ">Share our Link</button>
+                        <button class="btn btn-info mx-3 px-5 text-white ">  Share our Link   </button>
                     </div>
                 </div>
                 <div class="border-top  d-flex justify-content-between py-2 my-4 align-items-center ">
@@ -130,7 +158,7 @@
 
     </div>
 
-     </footer>
+     </div>
 
 </section>
 

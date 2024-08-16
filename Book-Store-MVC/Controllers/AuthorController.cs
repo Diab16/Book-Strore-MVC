@@ -70,7 +70,7 @@ namespace Book_Store_MVC.Controllers
 
         //save the author in database
         [HttpPost]
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult Create(AuthorViewModel authorViewModel)
         {
             if (ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace Book_Store_MVC.Controllers
 
 
 
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult AddBook(int authorId)
         {
             var author = bookStore.Author.FirstOrDefault(a => a.Id == authorId);
@@ -211,7 +211,7 @@ namespace Book_Store_MVC.Controllers
         //}
 
         //edit existed author
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult Edit(int id)
         {
             Author author = bookStore.Author.Find(id);
@@ -223,7 +223,7 @@ namespace Book_Store_MVC.Controllers
         }
         //save author edit in database
         [HttpPost]
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult Edit(Author author)
         {
             if (ModelState.IsValid)
@@ -240,7 +240,7 @@ namespace Book_Store_MVC.Controllers
             }
             return View(author);
         }
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult Delete(int id)
         {
             Author author = bookStore.Author.Find(id);
@@ -252,7 +252,7 @@ namespace Book_Store_MVC.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, author")]
+        [Authorize(Roles = "Admin, author")]
         public ActionResult DeleteConfirmed(int id)
         {
             Author author = bookStore.Author.Find(id);

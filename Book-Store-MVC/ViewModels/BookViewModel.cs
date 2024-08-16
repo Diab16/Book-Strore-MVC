@@ -19,7 +19,7 @@ namespace Book_Store_MVC.ViewModels
         [Required]
         public float? Price { get; set; }
         public string? ImageUrl { get; set; }
-        public IFormFile Imagefile { get; set; }
+        public IFormFile? Imagefile { get; set; }
         public string PublisherName { get; set; }
 
         public string AuthorName { get; set; }

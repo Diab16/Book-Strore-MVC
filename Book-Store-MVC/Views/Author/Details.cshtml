@@ -13,7 +13,7 @@
                         }
                     </ul>
 
-                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("author"))
                     {
                             <div class="d-flex mt-3">
                                 <a class="btn btn-outline-primary m-1" href="/Author/Edit?id=@Model.Id"><i class="fa-solid fa-pen"></i> Edit</a>
