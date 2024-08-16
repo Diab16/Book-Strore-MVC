@@ -12,7 +12,7 @@
     <div class="container">
      
 
-        @if (!User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin"))
         {
             @if (Model.Count() > 0)
             {

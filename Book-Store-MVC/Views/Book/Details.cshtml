@@ -24,7 +24,7 @@
                 </form>
             }
 
-            @if (!User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin"))
             {
                 <a class="btn m-1" href="/Book/Edit?id=@Model.Id"><i class="fa-solid fa-pen"></i> Edit</a>
                 <a class="btn m-1" href="/Book/Delete?id=@Model.Id"><i class="fa-solid text-danger fa-trash"></i> Delete</a>

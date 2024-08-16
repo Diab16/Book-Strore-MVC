@@ -15,17 +15,17 @@
 <body>
 
 
-    <partial name="NavPartialView"/>
-    <section class="vh-100  parent pt-5 ">
+    <partial  name="NavPartialView" />
+    <section  class="vh-100  parent pt-5 ">
 
-        <div class=" ch1  bg-light ">
+        <div  class=" ch1 bg-light  ">
 
             <ul class="navbar-nav me-auto mb-2 p-4 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link text-black active " asp-action="Index" asp-controller="Home"><i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black " asp-action="Index" asp-controller="Book" asp-route-id=0> <i class="fa-solid fa-compass"></i> All Books </a>
+                    <a class="nav-link text-black " asp-action="Index" asp-controller="Book" asp-route-id=0> <i class="fa-solid fa-book iconcolor"></i> All Books </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black " asp-action="Index" asp-controller="Category"> <i class="fa-solid fa-compass"></i> Categories </a>
@@ -44,7 +44,7 @@
                 <br />
                 <hr />
 
-                @if (!User.IsInRole("Admin"))  
+                @if (User.IsInRole("Admin"))  
                 { 
                     <li class="nav-item">
                         <a class="nav-link text-black " asp-action="index" asp-controller="User" tabindex="-1" ><i class="fa-solid fa-user"></i>  Manage Users</a>
@@ -56,9 +56,7 @@
                     <a class="nav-link text-black " href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-gear"></i> Orders</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-black " href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-gear"></i> Mode </a>
-                </li>
+               
             </ul>
         </div>
 
@@ -120,13 +118,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-    <script>
-        $(document).ready(function () {
-            setTimeout(function () {
-                $('#Temp').fadeOut('slow');
-            }, 1000); // Adjust time as needed (3000ms = 3 seconds)
-        });
-    </script>
+    
 
 
     

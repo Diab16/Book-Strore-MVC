@@ -158,6 +158,7 @@ namespace Book_Store_MVC.Controllers
             viewModel.Authorlist = aurhrepo.GetAll().ToList();
             viewModel.publisherlist = publisherrepo.GetAll().ToList();
             viewModel.ImageUrl = book.ImageUrl;
+         
             return View(viewModel);
 
         }
@@ -170,10 +171,23 @@ namespace Book_Store_MVC.Controllers
                 ModelState.Remove("Imagefile"); // Remove the validation for Imagefile if editing
             }
 
-            if (ModelState.IsValid)
-            {
+     
+
+
+                if (ModelState.IsValid)
+                {
                 var book  = bookRepository.GetById(bookmodel.Id);
-                bookmodel.ImageUrl = UploadFile.Upload(bookmodel.Imagefile, "imges");
+
+                if (bookmodel.Imagefile != null && bookmodel.Imagefile.Length > 0)
+                {
+                    // If a new image file is uploaded, update the ImageUrl with the new file path
+                    book.ImageUrl = UploadFile.Upload(bookmodel.Imagefile, "imges");
+                }
+                else
+                {
+                    // If no new image is uploaded, retain the old ImageUrl
+                    book.ImageUrl = book.ImageUrl;
+                }
                 book.Title = bookmodel.Title;
                 book.Description = bookmodel.Description;
                 book.Language = bookmodel.Language;
@@ -228,8 +242,20 @@ namespace Book_Store_MVC.Controllers
             if (id == bookmodel.Id)
             {
                 Book book = mapper.Map<BookViewModel, Book>(bookmodel);
-                bookRepository.Delete(book);
+                  bookRepository.Delete(book);
                 bookRepository.Save();
+                if (!string.IsNullOrEmpty(book.ImageUrl))
+                {
+                    try
+                    {
+                        UploadFile.DeleteFile(book.ImageUrl, "Imges");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exception (e.g., log the error)
+                        Console.WriteLine($"Error deleting file: {ex.Message}");
+                    }
+                }
                 return RedirectToAction(nameof(Index));
 
             }

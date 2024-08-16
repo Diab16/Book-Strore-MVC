@@ -116,3 +116,18 @@ section .button {
 
 
 
+.colorBox {
+    background-color: #f8f9fa;
+    color: #fff;
+    transition: background-color 0.3s; /* Smooth transition for color change */
+}
+
+.bilbpoeard 
+{
+    background-image:url("~/imges/Billboeard.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+   
+}
