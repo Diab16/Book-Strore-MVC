@@ -1,0 +1,72 @@
+﻿@model List<Author>
+
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<section class="d-flex p-3 justify-content-evenly flex-wrap bg-light m-5 rounded-3">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+            <form asp-action="Search" method="get" class="input-group mb-3">
+                <i class="fa-solid fa-filter input-group-text"></i>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Search authors by name or books">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </form>
+
+            @if (User.IsInRole("admin") || User.IsInRole("author"))
+            {
+                <a class="btn" asp-action="Create" asp-controller="Author">
+                    <i class="fa-solid fa-plus"></i> Add New Author
+                </a>
+            }
+        </div>
+
+        <div class="row g-3 m-2">
+            @foreach (var author in Model)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <!-- Adjusted col size for better responsiveness -->
+                    <div class="card shadow rounded-3 h-100">
+                        <div class="card-body text-black d-flex flex-column">
+                            <h4 class="card-title">@author.Name</h4>
+                            <p class="card-text">
+                                <strong>Famous Books:</strong>
+                                <ul>
+                                    @foreach (var book in author.Books)
+                                    {
+                                        <li>@book.Title</li>
+                                    }
+                                </ul>
+                            </p>
+
+                            <div class="mt-auto">
+                                <!-- Push buttons to the bottom if needed -->
+                                <div class="d-flex flex-wrap gap-2 justify-content-between">
+                                    <!-- Flexbox with gap for spacing -->
+                                    <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-outline-secondary">
+                                        <i class="fa-solid fa-eye"></i> Details
+                                    </a>
+                                    @if (User.IsInRole("admin") || User.IsInRole("author"))
+                                    {
+                                        <a href="@Url.Action("Edit", new { id = author.Id })" class="btn  btn-outline-secondary">
+                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                        </a>
+                                        <a href="@Url.Action("Delete", new { id = author.Id })" class="btn  btn-outline-secondary text-danger">
+                                            <i class="fa-solid fa-trash"></i> Delete
+                                        </a>
+                                        <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-outline-secondary">
+                                            <i class="fa-solid fa-book"></i> Add Book
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

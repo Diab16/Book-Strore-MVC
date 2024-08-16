@@ -58,7 +58,7 @@ namespace Day2.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await userManager.FindByEmailAsync(userVM.UserEmail);
+                ApplicationUser? user = await userManager.FindByEmailAsync(userVM.UserEmail);
                 if (user != null)
                 {
                     var found = await userManager.CheckPasswordAsync(user,userVM.Password);

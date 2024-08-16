@@ -36,7 +36,7 @@ namespace Day2.Controllers
                 result = await roleManager.CreateAsync(role);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("login", "account");
+                    return RedirectToAction("addrole");
                 }
                 foreach (var item in result.Errors)
                     ModelState.AddModelError("", item.Description);
@@ -77,8 +77,10 @@ namespace Day2.Controllers
                     }
                     
                     await userManager.AddToRoleAsync(user, roleVM.RoleName);
+
+
                     
-                    
+                  
                     return RedirectToAction("login", "account");
                 }
                 ModelState.AddModelError("", "User or Role Not Found");
