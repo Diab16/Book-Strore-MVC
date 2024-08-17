@@ -5,6 +5,7 @@ using Book_Store_MVC.ViewModels;
 using Day2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Security.Claims;
 
 namespace Book_Store_MVC.Controllers
@@ -82,6 +83,7 @@ namespace Book_Store_MVC.Controllers
             var user = genericUser.GetByStringId(id);
             if(user != null)
             {
+                
                 string rolename = userManager.GetRolesAsync(user).Result[0];
                 string roleid = context.Roles.FirstOrDefault(r => r.Name == rolename).Id;
                 UserManagerViewModel userVM = new UserManagerViewModel()
@@ -93,12 +95,20 @@ namespace Book_Store_MVC.Controllers
                     Address = user.Address,
                     roleId = roleid,
                     roleName = rolename,
-                    Role = context.Roles.FirstOrDefault(r=>r.Id == roleid),
+                    Role = context.Roles.FirstOrDefault(r => r.Id == roleid),
                     Roles = context.Roles.ToList(),
 
                 };
-                ViewBag.userId = user.Id;
-                return View(userVM);
+                if (ModelState.IsValid)
+                {   
+                    ViewBag.userId = user.Id;
+                    return View(userVM);
+
+                }
+                userVM.Roles = context.Roles.ToList();
+                return View(user.Id);
+
+                
             }
             return RedirectToAction(nameof(Index));
          }
@@ -129,19 +139,24 @@ namespace Book_Store_MVC.Controllers
                             await userManager.AddToRoleAsync(userDB, userVM.roleName);
                             Claim Roleclaim = new Claim("role", userVM.roleName);
                             await userManager.AddClaimAsync(userDB, Roleclaim);
+                            var s = userManager.GetUserId(User);
+                            if (userdb.Id == userManager.GetUserId(User))
+                            {
+                                return RedirectToAction("signout", "account");
+                            }
                             return RedirectToAction(nameof(Index));
                         }
                         foreach (var item in result.Errors)
                             ModelState.AddModelError("", item.Description);
-
+                        
                         return RedirectToAction(nameof(Index));
                     }
                 }
-                
-
+                userVM.Roles = context.Roles.ToList();
                 return View(userVM);
                 
             }
+            userVM.Roles = context.Roles.ToList();
             return View(userVM);
 
         }
@@ -151,6 +166,7 @@ namespace Book_Store_MVC.Controllers
             var user = genericUser.GetByStringId(id);
             if (user != null)
             {
+                
                 string rolename = userManager.GetRolesAsync(user).Result[0];
                 string roleid = context.Roles.FirstOrDefault(r => r.Name == rolename).Id;
                 DeleteUser userVM = new DeleteUser()

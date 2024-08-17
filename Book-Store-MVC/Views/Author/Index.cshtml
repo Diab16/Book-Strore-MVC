@@ -6,21 +6,22 @@
 
 <section class="d-flex p-3 justify-content-evenly flex-wrap bg-light m-5 rounded-3">
     <div class="container">
-        <div class="d-flex justify-content-between mb-3">
-            <form asp-action="Search" method="get" class="input-group mb-3">
+        <div class="d-flex justify-content-between mb-3 py-2">
+            <form asp-action="Search" method="get" class="input-group">
                 <i class="fa-solid fa-filter input-group-text"></i>
                 <input type="text" name="searchTerm" class="form-control" placeholder="Search authors by name or books">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                <button type="submit" class="btn btn-primary rounded">
+                    <i class="fa-solid fa-magnifying-glass text-light"></i> Search
                 </button>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-outline-primary ms-5 rounded" asp-action="Create" asp-controller="Author">
+                        <i class="fa-solid fa-plus text-primary "></i> Add New Author
+                    </a>
+                }
             </form>
 
-            @if (User.IsInRole("Admin"))
-            {
-                <a class="btn" asp-action="Create" asp-controller="Author">
-                    <i class="fa-solid fa-plus"></i> Add New Author
-                </a>
-            }
+            
         </div>
 
         <div class="row g-3 m-2">
@@ -29,35 +30,36 @@
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <!-- Adjusted col size for better responsiveness -->
                     <div class="card shadow rounded-3 h-100">
+                        <h4 class="card-header mb-3 text-primary text-center pt-3" style="height:80px;">@author.Name</h4>
                         <div class="card-body text-black d-flex flex-column">
-                            <h4 class="card-title">@author.Name</h4>
+                            
                             <p class="card-text">
-                                <strong>Famous Books:</strong>
-                                <ul>
+                                <strong class="text-secondary">Famous Books:</strong>
+                                <div class="text-center">
                                     @foreach (var book in author.Books)
                                     {
-                                        <li>@book.Title</li>
+                                        <div class="p-2 m-2 rounded fs-5" style="list-style:none; background-color:rgba(0,0,0,0.2) ">@book.Title</div>
                                     }
-                                </ul>
+                                </div>
                             </p>
 
                             <div class="mt-auto">
                                 <!-- Push buttons to the bottom if needed -->
                                 <div class="d-flex flex-wrap gap-2 justify-content-between">
                                     <!-- Flexbox with gap for spacing -->
-                                    <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-outline-secondary">
+                                    <a href="@Url.Action("Details", new { id = author.Id })" class="btn btn-outline-primary" style="width:115px;">
                                         <i class="fa-solid fa-eye"></i> Details
                                     </a>
                                     @if (User.IsInRole("Admin") || User.IsInRole("author"))
                                     {
-                                        <a href="@Url.Action("Edit", new { id = author.Id })" class="btn  btn-outline-secondary">
-                                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                                        <a href="@Url.Action("Edit", new { id = author.Id })" class="btn  btn-outline-secondary" >
+                                            <i class="fa-solid fa-pen-to-square text-secondary"></i> Edit
                                         </a>
-                                        <a href="@Url.Action("Delete", new { id = author.Id })" class="btn  btn-outline-secondary text-danger">
-                                            <i class="fa-solid fa-trash"></i> Delete
+                                        <a href="@Url.Action("Delete", new { id = author.Id })" class="btn  btn-outline-danger" style="width:115px;">
+                                            <i class="fa-solid fa-trash text-danger"></i> Delete
                                         </a>
-                                        <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-outline-secondary">
-                                            <i class="fa-solid fa-book"></i> Add Book
+                                        <a href="@Url.Action("AddBook", new { authorId = author.Id })" class="btn btn-outline-success">
+                                            <i class="fa-solid fa-book text-success"></i> Add Book
                                         </a>
                                     }
                                 </div>
