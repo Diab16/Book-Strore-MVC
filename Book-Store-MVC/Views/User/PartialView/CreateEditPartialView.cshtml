@@ -1,17 +1,28 @@
 ﻿
 @model UserManagerViewModel
 
+
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group ">
         <label asp-for="Username" class="control-label">Username</label>
         <input placeholder="Enter Username" asp-for="Username" class="form-control " />
         <span asp-validation-for="Username" class="text-danger"></span>
     </div>
-    <div class="form-group ">
-        <label asp-for="UserEmail" class="control-label">Email</label>
-        <input asp-for="UserEmail" placeholder="Enter  Email" class="form-control" readonly="readonly"/>
-        <span asp-validation-for="UserEmail" class="text-danger"></span>
-    </div>
+    @if (ViewData["create"] == "ok")
+    {
+        <div class="form-group ">
+            <label asp-for="UserEmail" class="control-label">Email</label>
+            <input asp-for="UserEmail" placeholder="Enter  Email" class="form-control" />
+            <span asp-validation-for="UserEmail" class="text-danger"></span>
+        </div>
+    }else{
+        <div class="form-group ">
+            <label asp-for="UserEmail" class="control-label">Email</label>
+            <input asp-for="UserEmail" placeholder="Enter  Email" class="form-control" readonly="readonly" />
+            <span asp-validation-for="UserEmail" class="text-danger"></span>
+        </div>
+    }
+    
     <div class="form-group ">
         <label asp-for="Password" class="control-label">Password</label>
         <input placeholder="Enter Password" asp-for="Password" class="form-control " />

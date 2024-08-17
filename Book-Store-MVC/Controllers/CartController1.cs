@@ -52,7 +52,7 @@ namespace Book_Store_MVC.Controllers
             
             }
 
-            return RedirectToAction("ViewCart");
+            return RedirectToAction("Index", "Book");
         }
 
         // Action to view the cart
@@ -71,6 +71,11 @@ namespace Book_Store_MVC.Controllers
             }
 
             return RedirectToAction("ViewCart");
+        }
+        public ActionResult Submitted()
+        {
+            cart.RemoveRange(0, cart.Count);
+            return View("Submitted");
         }
     }
 

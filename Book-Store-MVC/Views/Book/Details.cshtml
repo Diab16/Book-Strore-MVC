@@ -18,7 +18,7 @@
                 <form asp-action="AddToCart" asp-controller="CartController1" method="post">
                     <input type="hidden" name="productId" value="@Model.Id" /> <!-- Pass the book ID -->
                     <input type="number" class="form-control w-50 mb-3" name="quantity" value="1" min="1" /> <!-- Allow user to specify quantity -->
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" onclick="added()">
                         <i class="fa-solid fa-cart-shopping"></i> Add To Cart
                     </button>
                 </form>
@@ -32,3 +32,13 @@
         </div>
     </div>
 </section>
+<script>
+    
+    function added(){
+        var numOfBooks = document.getElementsByName("quantity")[0].value;
+        if (numOfBooks == 1) 
+            alert('1 Book Added To Cart Successfully!');
+        else
+            alert(numOfBooks+' Books Added To Cart Successfully!');
+    }
+</script>
