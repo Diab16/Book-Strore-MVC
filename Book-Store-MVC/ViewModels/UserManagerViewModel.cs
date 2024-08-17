@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Book_Store_MVC.Validation;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +9,7 @@ namespace Book_Store_MVC.ViewModels
     {
         public string Username { get; set; }
         [Display(Name = "Email")]
-        [RegularExpression("^[a-z0-9]+@[a-z]+.com$", ErrorMessage = "Your Email Must Have '@' and end with '.com'")]
+        [RegularExpression("^[a-zA-Z0-9]+@[a-z]+.com$", ErrorMessage = "Your Email Must Have '@' and end with '.com'")]
         public string UserEmail { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }

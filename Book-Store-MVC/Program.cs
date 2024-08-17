@@ -2,6 +2,7 @@ using Book_Store_MVC.IRepositories;
 using Book_Store_MVC.MappingProfile;
 using Book_Store_MVC.Models;
 using Book_Store_MVC.Repositories;
+using Book_Store_MVC.Validation;
 using Day2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Book_Store_MVC
             //abdalla
             builder.Services.AddDbContext<BookStoreContext>(option =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("Alaa"));
+                option.UseSqlServer(builder.Configuration.GetConnectionString("cslocal"));
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
@@ -36,6 +37,7 @@ namespace Book_Store_MVC
             builder.Services.AddScoped< BookRepository>();
             builder.Services.AddScoped< CategoryRepository>();
             builder.Services.AddScoped< UserRepository>();
+            
 
             builder.Services.AddScoped<IGenericRepository<Author> , AuthorRepository>();
             builder.Services.AddScoped<IGenericRepository<Category> , CategoryRepository>();

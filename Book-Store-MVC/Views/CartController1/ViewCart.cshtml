@@ -2,7 +2,7 @@
 
 <h2 class="text-center my-4 sofia-regular">Your Cart</h2>
 
-<div class="container">
+<div class="container text-center">
     <div class="row">
         @if (Model.Any())
         {
@@ -15,10 +15,10 @@
                             <h5 class="card-title">@item.ProductName</h5>
                             <p class="card-text">Quantity: @item.Quantity</p>
                             <p class="card-text">
-                                <strong>Price: @item.Price</strong>
+                                <strong>Price: @item.Price$</strong>
                             </p>
                             <p class="card-text">
-                                <strong>Total: @(item.Price * item.Quantity)</strong>
+                                <strong>Total: @(item.Price * item.Quantity)$</strong>
                             </p>
                             <div class="d-flex justify-content-between">
                                 @Html.ActionLink("Remove", "RemoveFromCart", new { productId = item.ProductId }, new { @class = "btn btn-danger" })
@@ -29,12 +29,15 @@
             }
 
             <div class="col-12 mt-4">
-                <h5 class="text-right">Total: @Model.Sum(x => x.Price * x.Quantity)</h5>
+                <h5 class="text-center form-check-label fs-4 " >Total: @Model.Sum(x => x.Price * x.Quantity)$</h5>
+            </div>
+            <div class="col-12 mt-4">
+                <a class="sofia-regular fs-2 text-center btn btn-outline-success py-1 px-5 mb-4" asp-action="Submitted" asp-controller="CartController1">Submit Order</a>
             </div>
         }
         else
         {
-            <div class="col-12">
+            <div class="col-12" style="margin-bottom:300px;">
                 <div class="alert alert-info text-center" role="alert">
                     Your cart is empty. Start adding items!<span><a asp-controller="Book" asp-action="Index"> Shop Now !!</a></span>
                 </div>

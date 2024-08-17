@@ -81,7 +81,7 @@ namespace Day2.Controllers
 
                     
                   
-                    return RedirectToAction("login", "account");
+                    return RedirectToAction("signout", "account");
                 }
                 ModelState.AddModelError("", "User or Role Not Found");
 
